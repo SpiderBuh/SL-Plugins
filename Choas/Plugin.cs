@@ -16,7 +16,7 @@ namespace Choas
         [PluginEntryPoint("Choas", "1.0.0", "brings the choas to SL", "Dragon Inn Tech Team")]
         public void OnPluginStart()
         {
-            Log.Info($"Let the choas begin");
+            Logger.Info($"Let the choas begin");
             EventManager.RegisterEvents<Events>(this);
 
             if (ServerSpecificSettingsSync.DefinedSettings == null)

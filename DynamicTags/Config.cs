@@ -1,6 +1,8 @@
-﻿namespace DynamicTags
+﻿using RedRightHand.CustomPlugin;
+
+namespace DynamicTags
 {
-	public class Config
+	public class Config : CustomPluginConfig
 	{
 		/// <summary>
 		/// Endpoint location for the external web API that the plugin will interact with.

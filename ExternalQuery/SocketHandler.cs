@@ -1,6 +1,7 @@
-﻿using Newtonsoft.Json;
+﻿using LabApi.Features.Console;
+using LabApi.Features.Wrappers;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using PluginAPI.Core;
 using System;
 using System.Net;
 using System.Net.Sockets;
@@ -15,7 +16,7 @@ namespace ExternalQuery
 
 		public SocketHandler()
 		{
-			TcpListener = new TcpListener(IPAddress.Any, Plugin.Config.Port);
+			TcpListener = new TcpListener(IPAddress.Any, ExternalQueryPlugin.Config.Port);
 			TcpListener.Start();
 
 			new Thread(() =>
@@ -32,7 +33,7 @@ namespace ExternalQuery
 				{
 					var client = TcpListener.AcceptTcpClient();
 
-					Log.Info($"Connection from {client.Client.RemoteEndPoint} opened");
+					Logger.Info($"Connection from {client.Client.RemoteEndPoint} opened");
 
 					NetworkStream stream = client.GetStream();
 
@@ -48,7 +49,7 @@ namespace ExternalQuery
 
 						if (string.IsNullOrEmpty(data))
 						{
-							Log.Info($"Remote query from {client.Client.RemoteEndPoint} rejected due to invalid request format");
+							Logger.Info($"Remote query from {client.Client.RemoteEndPoint} rejected due to invalid request format");
 							send(stream, JsonConvert.SerializeObject(new JObject(new JProperty("response", "Invalid format"))));
 						}
 						else
@@ -57,19 +58,19 @@ namespace ExternalQuery
 							{
 								JObject obj = JObject.Parse(data);
 
-								if (!obj.ContainsKey("password") || obj["password"].ToString() != Plugin.Config.Password)
+								if (!obj.ContainsKey("password") || obj["password"].ToString() != ExternalQueryPlugin.Config.Password)
 								{
-									Log.Info($"Remote query from {client.Client.RemoteEndPoint} rejected due to invalid password");
+									Logger.Info($"Remote query from {client.Client.RemoteEndPoint} rejected due to invalid password");
 									send(stream, JsonConvert.SerializeObject(new JObject(new JProperty("response", "Invalid Query Password"))));
 								}
 								else if (!obj.ContainsKey("command"))
 								{
-									Log.Info($"Remote query from {client.Client.RemoteEndPoint} rejected due to invalid request format");
+									Logger.Info($"Remote query from {client.Client.RemoteEndPoint} rejected due to invalid request format");
 									send(stream, JsonConvert.SerializeObject(new JObject(new JProperty("response", "Invalid format"))));
 								}
 								else
 								{
-									Log.Info($"Remote query from {client.Client.RemoteEndPoint} executed command {obj["command"]}");
+									Logger.Info($"Remote query from {client.Client.RemoteEndPoint} executed command {obj["command"]}");
 
 									var cmdStr = obj["command"].ToString().ToLower();
 
@@ -123,11 +124,11 @@ namespace ExternalQuery
 							}
 							catch (Exception e)
 							{
-								Log.Info($"Error executing remote command: {e}\nData: {data}");
+								Logger.Info($"Error executing remote command: {e}\nData: {data}");
 							}
 						}
 
-						Log.Info($"Connection from {client.Client.RemoteEndPoint} closed");
+						Logger.Info($"Connection from {client.Client.RemoteEndPoint} closed");
 
 						stream.Close();
 						client.Close();
@@ -135,7 +136,7 @@ namespace ExternalQuery
 					}
 					catch (Exception e)
 					{
-						Log.Info($"Error executing remote command: {e}");
+						Logger.Info($"Error executing remote command: {e}");
 						send(stream, JsonConvert.SerializeObject(new JObject(new JProperty("response", e))));
 
 						stream.Close();
@@ -151,7 +152,7 @@ namespace ExternalQuery
 		{
 			byte[] bytes = UTF8Encoding.UTF8.GetBytes(content);
 			stream.Write(bytes, 0, bytes.Length);
-			Log.Info($"Command output sent to remote query source");
+			Logger.Info($"Command output sent to remote query source");
 		}
 	}
 }

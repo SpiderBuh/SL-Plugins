@@ -1,6 +1,8 @@
-﻿namespace CustomCommands
+﻿using RedRightHand.CustomPlugin;
+
+namespace CustomCommands
 {
-	public class Config
+	public class Config : CustomPluginConfig
 	{
 		//Enables the plock and pdestroy commands
 		public bool EnableDoorLocking { get; set; } = true;

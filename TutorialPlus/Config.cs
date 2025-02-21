@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RedRightHand.CustomPlugin;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace TutorialPlus
 {
-	public class Config
+	public class Config : CustomPluginConfig
 	{
 		[Description("Should tutorials be able to trigger SCP-096 and become a target")]
 		public bool TutorialTrigger096 { get; set; } = false;
