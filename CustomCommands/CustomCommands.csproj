@@ -32,81 +32,78 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Commands\Check\Ban.cs" />
+    <Compile Include="Commands\Check\CheckParent.cs" />
+    <Compile Include="Commands\Check\Mute.cs" />
+    <Compile Include="Commands\Misc\RMute.cs" />
+    <Compile Include="Commands\Player\Drop.cs" />
+    <Compile Include="Commands\Player\Explode.cs" />
+    <Compile Include="Commands\Player\Hint.cs" />
+    <Compile Include="Commands\Player\PlayerParent.cs" />
+    <Compile Include="Commands\Player\Pocket.cs" />
+    <Compile Include="Commands\Player\SendTo.cs" />
+    <Compile Include="Commands\Player\Tower2.cs" />
+    <Compile Include="Commands\Player\TeleportToCoords.cs" />
+    <Compile Include="Commands\Player\Trip.cs" />
+    <Compile Include="Commands\Renaming\MassRename.cs" />
+    <Compile Include="Commands\Renaming\MassUnname.cs" />
+    <Compile Include="Commands\Spawn\Ball.cs" />
+    <Compile Include="Commands\Spawn\Flashbang.cs" />
+    <Compile Include="Commands\Spawn\Grenade.cs" />
+    <Compile Include="Commands\Spawn\SpawnParent.cs" />
+    <Compile Include="Core\CustomEventRound.cs" />
     <Compile Include="Core\CustomFeature.cs" />
-    <Compile Include="Core\ParentCommands\PlayerParent.cs" />
-    <Compile Include="FeaturesOld\Players\Explode.cs" />
-    <Compile Include="FeaturesOld\Misc\MassRenaming.cs" />
-    <Compile Include="FeaturesOld\Misc\rmute.cs" />
-    <Compile Include="FeaturesOld\Misc\Vote.cs" />
-    <Compile Include="FeaturesOld\Misc\BanCheck.cs" />
-    <Compile Include="FeaturesOld\Misc\MuteCheck.cs" />
-    <Compile Include="FeaturesOld\Events\WeeklyEvents\EventManager.cs" />
-    <Compile Include="FeaturesOld\Events\WeeklyEvents\Events.cs" />
-    <Compile Include="FeaturesOld\Humans\CustomHumanSettings.cs" />
-    <Compile Include="FeaturesOld\Humans\Disarming\DisarmingEvents.cs" />
-    <Compile Include="FeaturesOld\Humans\LateJoin\LateJoinEvents.cs" />
-    <Compile Include="FeaturesOld\Humans\LateSpawn\LateSpawnEvents.cs" />
-    <Compile Include="FeaturesOld\Humans\TutorialFix\TutorialEvents.cs" />
-    <Compile Include="FeaturesOld\Items\Grenades\Commands\Flash.cs" />
-    <Compile Include="FeaturesOld\Items\Grenades\Commands\Grenade.cs" />
-    <Compile Include="FeaturesOld\Items\Grenades\Commands\Ball.cs" />
-    <Compile Include="FeaturesOld\Players\Drop.cs" />
-    <Compile Include="FeaturesOld\Players\Teleport\Pocket.cs" />
-    <Compile Include="FeaturesOld\Map\DMSBullshit\DMSEvents.cs" />
-    <Compile Include="FeaturesOld\Testing\Navigation\NavigationEvents.cs" />
-    <Compile Include="FeaturesOld\Map\Carpincho.cs" />
-    <Compile Include="FeaturesOld\Map\RollingBlackouts\BlackoutEvents.cs" />
-    <Compile Include="FeaturesOld\Map\RollingBlackouts\BlackoutManager.cs" />
-    <Compile Include="FeaturesOld\Players\Size\SizeCommand.cs" />
-    <Compile Include="FeaturesOld\Players\Teleport\SendToPlayer.cs" />
-    <Compile Include="FeaturesOld\Players\Teleport\TeleportToCoords.cs" />
+    <Compile Include="Features\Voting\Vote.cs" />
+    <Compile Include="Features\CustomSettings\CustomHumanSettings.cs" />
+    <Compile Include="Features\Disarming\DisarmingEvents.cs" />
+    <Compile Include="Features\DMSRandomized\DMSEvents.cs" />
+    <Compile Include="Features\TestingFeatures\Navigation\NavigationEvents.cs" />
+    <Compile Include="Features\Holidays\Carpincho.cs" />
+    <Compile Include="Features\Blackouts\BlackoutEvents.cs" />
+    <Compile Include="Features\Blackouts\BlackoutManager.cs" />
+    <Compile Include="Commands\Size\SizeCommand.cs" />
     <Compile Include="FeaturesOld\TestCommand.cs" />
-    <Compile Include="FeaturesOld\Players\Teleport\Tower2.cs" />
     <Compile Include="Config.cs" />
-    <Compile Include="FeaturesOld\Players\Size\SizeEvents.cs" />
-    <Compile Include="FeaturesOld\Players\Size\SizeManager.cs" />
-    <Compile Include="FeaturesOld\SCPs\CustomSCPSettings.cs" />
-    <Compile Include="FeaturesOld\SCPs\SCP3114\SCP3114Overhaul.cs" />
-    <Compile Include="FeaturesOld\Players\SendHint.cs" />
+    <Compile Include="Commands\Size\SizeEvents.cs" />
+    <Compile Include="Commands\Size\SizeManager.cs" />
+    <Compile Include="Features\SCPSwap\CustomSCPSettings.cs" />
+    <Compile Include="Features\3114Enable\SCP3114Overhaul.cs" />
+    <Compile Include="Features\DamageAnnouncements\DamageAnnouncements.cs" />
     <Compile Include="Features\DoorLocking\Commands\Doors.cs" />
     <Compile Include="Features\DoorLocking\DoorLocking.cs" />
-    <Compile Include="FeaturesOld\Map\SurfaceLightFix\LightFixEvents.cs" />
-    <Compile Include="FeaturesOld\Map\SurfaceLightFix\SurfaceLightObject.cs" />
-    <Compile Include="FeaturesOld\SCPs\DamageAnnouncements\AnnouncementEvents.cs" />
-    <Compile Include="FeaturesOld\SCPs\DamageAnnouncements\AnnouncementManager.cs" />
-    <Compile Include="FeaturesOld\Testing\TestingDummies.cs" />
+    <Compile Include="Features\SCPSwap\Commands\SwapParentCommand.cs" />
+    <Compile Include="Features\SCPSwap\SCPSwap.cs" />
+    <Compile Include="Features\SurfaceLightingFix\SurfaceLightObject.cs" />
+    <Compile Include="Features\TestingFeatures\TestingDummies.cs" />
     <Compile Include="CustomCommandsPlugin.cs" />
+    <Compile Include="Features\EventRounds\EventRounds.cs" />
+    <Compile Include="Features\LateJoin\LateJoin.cs" />
+    <Compile Include="Features\LateSpawn\LateSpawn.cs" />
+    <Compile Include="Features\SurfaceLightingFix\SurfaceLightingFix.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="FeaturesOld\Events\DClassBattle\BattleCommand.cs" />
-    <Compile Include="FeaturesOld\Events\GlobalEvents.cs" />
-    <Compile Include="FeaturesOld\Events\Infection\InfectionCommand.cs" />
-    <Compile Include="FeaturesOld\Events\Infection\InfectionEvents.cs" />
-    <Compile Include="FeaturesOld\Events\SnowballFight\SnowballCommand.cs" />
-    <Compile Include="FeaturesOld\Events\SnowballFight\SnowballEvents.cs" />
-    <Compile Include="FeaturesOld\Events\TDMInfection\TDMInfectionCommand.cs" />
-    <Compile Include="FeaturesOld\Items\ItemManager.cs" />
-    <Compile Include="FeaturesOld\Items\Weapons\Commands\Ball.cs" />
-    <Compile Include="FeaturesOld\Items\Weapons\Commands\Flash.cs" />
-    <Compile Include="FeaturesOld\Items\Weapons\Commands\Grenade.cs" />
-    <Compile Include="FeaturesOld\Items\Weapons\Commands\Ragdoll.cs" />
-    <Compile Include="FeaturesOld\Items\Weapons\WeaponEvents.cs" />
-    <Compile Include="FeaturesOld\Ragdoll\Commands\Trip.cs" />
-    <Compile Include="FeaturesOld\Ragdoll\PlayerRagdollManager.cs" />
-    <Compile Include="FeaturesOld\Ragdoll\PocketRagdollHandler.cs" />
-    <Compile Include="FeaturesOld\SCPs\SCP079Removal\RemovalEvents.cs" />
-    <Compile Include="FeaturesOld\SCPs\Swap\Commands\Accept.cs" />
-    <Compile Include="FeaturesOld\SCPs\Swap\Commands\Deny.cs" />
-    <Compile Include="FeaturesOld\SCPs\Swap\Commands\Human.cs" />
-    <Compile Include="FeaturesOld\SCPs\Swap\Commands\List.cs" />
-    <Compile Include="FeaturesOld\SCPs\Swap\Commands\Replace.cs" />
-    <Compile Include="FeaturesOld\SCPs\Swap\Commands\Swap.cs" />
-    <Compile Include="FeaturesOld\SCPs\Swap\Commands\TriggerReplace.cs" />
-    <Compile Include="FeaturesOld\SCPs\Swap\SwapEvents.cs" />
-    <Compile Include="FeaturesOld\SCPs\Swap\SwapManager.cs" />
-    <Compile Include="FeaturesOld\Voting\Commands\No.cs" />
-    <Compile Include="FeaturesOld\Voting\Commands\Yes.cs" />
-    <Compile Include="FeaturesOld\Voting\VoteManager.cs" />
-    <Compile Include="FeaturesOld\Voting\VotingEvents.cs" />
+    <Compile Include="Features\EventRounds\Events\DClassBattle\BattleCommand.cs" />
+    <Compile Include="Features\EventRounds\Events\Infection\InfectionCommand.cs" />
+    <Compile Include="Features\EventRounds\Events\Infection\InfectionEvents.cs" />
+    <Compile Include="Features\EventRounds\Events\SnowballFight\SnowballCommand.cs" />
+    <Compile Include="Features\EventRounds\Events\SnowballFight\SnowballEvents.cs" />
+    <Compile Include="Features\EventRounds\Events\TDMInfection\TDMInfectionCommand.cs" />
+    <Compile Include="Features\CustomWeapons\Weapons\Commands\Ball.cs" />
+    <Compile Include="Features\CustomWeapons\Weapons\Commands\Flash.cs" />
+    <Compile Include="Features\CustomWeapons\Weapons\Commands\Grenade.cs" />
+    <Compile Include="Features\CustomWeapons\Weapons\Commands\Ragdoll.cs" />
+    <Compile Include="Features\CustomWeapons\Weapons\WeaponEvents.cs" />
+    <Compile Include="Features\Misc\PocketRagdollHandler.cs" />
+    <Compile Include="Features\079Removal\RemovalEvents.cs" />
+    <Compile Include="Features\SCPSwap\Commands\Accept.cs" />
+    <Compile Include="Features\SCPSwap\Commands\Deny.cs" />
+    <Compile Include="Features\SCPSwap\Commands\Human.cs" />
+    <Compile Include="Features\SCPSwap\Commands\List.cs" />
+    <Compile Include="Features\SCPSwap\Commands\Replace.cs" />
+    <Compile Include="Features\SCPSwap\Commands\TriggerReplace.cs" />
+    <Compile Include="Features\Voting\Commands\No.cs" />
+    <Compile Include="Features\Voting\Commands\Yes.cs" />
+    <Compile Include="Features\Voting\VoteManager.cs" />
+    <Compile Include="Features\Voting\VotingEvents.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -118,8 +115,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="FeaturesOld\DoorLocking\" />
-    <Folder Include="FeaturesOld\Items\Spawn\" />
+    <Folder Include="Features\WeeklyEvents\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="UnityEngine.PhysicsModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\UnityEngine.PhysicsModule.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

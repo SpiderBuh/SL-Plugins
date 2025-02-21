@@ -9,7 +9,15 @@ namespace CustomCommands.Core
 {
 	public abstract class CustomFeature : CustomEventsHandler
 	{
+		public static CustomFeature Instance { get; private set; }
 		public bool isEnabled { get; private set; }
+
+		public CustomFeature(bool configSetting) {
+			Instance = this;
+
+			if (configSetting)
+				OnEnabled();
+		}
 
 		public virtual void OnEnabled()
 		{

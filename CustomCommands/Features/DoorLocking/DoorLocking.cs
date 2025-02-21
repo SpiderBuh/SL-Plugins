@@ -14,17 +14,13 @@ namespace CustomCommands.Features.DoorLocking
 		public static DoorLocking Instance;
 		public static Dictionary<string, LockType> LockingDict = new Dictionary<string, LockType>();
 
+		public DoorLocking(bool configSetting) : base(configSetting)
+		{
+		}
+
 		public enum LockType
 		{
 			Lock, Destroy, NONE
-		}
-
-		public DoorLocking()
-		{
-			Instance = this;
-
-			if (CustomCommandsPlugin.Config.EnableDoorLocking)
-				OnEnabled();
 		}
 
 		public override void OnPlayerInteractingDoor(PlayerInteractingDoorEventArgs ev)

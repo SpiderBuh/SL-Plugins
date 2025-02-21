@@ -19,7 +19,9 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using UnityEngine;
 using Utils;
+using Logger = LabApi.Features.Console.Logger;
 
 namespace RedRightHand
 {
@@ -83,7 +85,7 @@ namespace RedRightHand
 			return true;
 		}
 
-		public static bool TryGetCommandArgument<T?>(this ArraySegment<string> args, int position, T defaultOutput, out T? argument, out string response)
+		public static bool TryGetCommandArgument<T>(this ArraySegment<string> args, int position, T defaultOutput, out T? argument, out string response)
 		{
 			response = string.Empty;
 			if (args.Count >= position + 1)
@@ -364,5 +366,10 @@ namespace RedRightHand
 
 			return false;
 		}
+	}
+
+	public class FakeRagdoll : MonoBehaviour
+	{
+
 	}
 }

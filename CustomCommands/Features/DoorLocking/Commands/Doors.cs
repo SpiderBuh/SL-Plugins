@@ -1,5 +1,5 @@
 ﻿using CommandSystem;
-using CustomCommands.Core.ParentCommands;
+using CustomCommands.Commands.Player;
 using RedRightHand;
 using RedRightHand.Commands;
 using System;
