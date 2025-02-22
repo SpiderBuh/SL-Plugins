@@ -1,4 +1,4 @@
-  <a href="https://discord.gg/dnet">
+  <a href="https://discord.gg/NbCBW2y86A">
     <img src="https://img.shields.io/discord/403155047527088129?logo=discord&logoColor=white&label=discord&color=%235865F2" alt="Discord">
   </a>
 
