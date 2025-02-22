@@ -29,7 +29,7 @@ namespace DynamicTags.Systems
 					ServerPort = Server.Port.ToString()
 				};
 
-				Extensions.Post(DynamicTagsPlugin.Config.ApiEndpoint + "scpsl/playerjoin", new StringContent(JsonConvert.SerializeObject(details), Encoding.UTF8, "application/json"));
+				Extensions.Post(DynamicTagsPlugin.Config.ApiUrl + "scpsl/playerjoin", new StringContent(JsonConvert.SerializeObject(details), Encoding.UTF8, "application/json"));
 			}
 			catch (Exception e)
 			{
@@ -49,7 +49,7 @@ namespace DynamicTags.Systems
 					ServerPort = Server.Port.ToString()
 				};
 
-				Extensions.Post(DynamicTagsPlugin.Config.ApiEndpoint + "scpsl/playerleave", new StringContent(JsonConvert.SerializeObject(details), Encoding.UTF8, "application/json"));
+				Extensions.Post(DynamicTagsPlugin.Config.ApiUrl + "scpsl/playerleave", new StringContent(JsonConvert.SerializeObject(details), Encoding.UTF8, "application/json"));
 
 			}
 			catch (Exception e)
@@ -72,7 +72,7 @@ namespace DynamicTags.Systems
 					Reason = string.IsNullOrEmpty(ev.Reason) ? "No reason provided" : ev.Reason
 				};
 
-				Extensions.Post(DynamicTagsPlugin.Config.ApiEndpoint + "scpsl/playerban", new StringContent(JsonConvert.SerializeObject(details), Encoding.UTF8, "application/json"));
+				Extensions.Post(DynamicTagsPlugin.Config.ApiUrl + "scpsl/playerban", new StringContent(JsonConvert.SerializeObject(details), Encoding.UTF8, "application/json"));
 
 			}
 			catch (Exception e)
@@ -113,7 +113,7 @@ namespace DynamicTags.Systems
 					};
 
 				}
-				Extensions.Post(DynamicTagsPlugin.Config.ApiEndpoint + "scpsl/playerkick", new StringContent(JsonConvert.SerializeObject(details), Encoding.UTF8, "application/json"));
+				Extensions.Post(DynamicTagsPlugin.Config.ApiUrl + "scpsl/playerkick", new StringContent(JsonConvert.SerializeObject(details), Encoding.UTF8, "application/json"));
 
 			}
 			catch (Exception e)
@@ -136,7 +136,7 @@ namespace DynamicTags.Systems
 					Reason = "No reason provided"
 				};
 
-				Extensions.Post(DynamicTagsPlugin.Config.ApiEndpoint + "scpsl/playermute", new StringContent(JsonConvert.SerializeObject(details), Encoding.UTF8, "application/json"));
+				Extensions.Post(DynamicTagsPlugin.Config.ApiUrl + "scpsl/playermute", new StringContent(JsonConvert.SerializeObject(details), Encoding.UTF8, "application/json"));
 
 			}
 			catch (Exception e)
@@ -159,7 +159,7 @@ namespace DynamicTags.Systems
 					Reason = "No reason provided"
 				};
 
-				Extensions.Post(DynamicTagsPlugin.Config.ApiEndpoint + "scpsl/playerunmute", new StringContent(JsonConvert.SerializeObject(details), Encoding.UTF8, "application/json"));
+				Extensions.Post(DynamicTagsPlugin.Config.ApiUrl + "scpsl/playerunmute", new StringContent(JsonConvert.SerializeObject(details), Encoding.UTF8, "application/json"));
 
 			}
 			catch (Exception e)

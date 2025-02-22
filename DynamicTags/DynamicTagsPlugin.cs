@@ -57,7 +57,7 @@ namespace DynamicTags
 
 			Reporting = new Reporting();
 			CustomHandlersManager.RegisterEventsHandler(Reporting);
-			Logger.Info($"Plugin is loaded. API Endpoint is: {Config.ApiEndpoint}");
+			Logger.Info($"Plugin is loaded. API Endpoint is: {Config.ApiUrl}");
 		}
 	}
 }

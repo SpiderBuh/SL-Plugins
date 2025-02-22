@@ -26,7 +26,7 @@ namespace DynamicTags.Systems
 				//Clears all previous tags held by the server (Prevents players from keeping tags when they have been removed from the external server).
 				Tags.Clear();
 
-				var response = await Extensions.Get(DynamicTagsPlugin.Config.ApiEndpoint + "games/gettags");
+				var response = await Extensions.Get(DynamicTagsPlugin.Config.ApiUrl + "games/gettags");
 
 				var tags = JsonConvert.DeserializeObject<TagData[]>(await response.Content.ReadAsStringAsync());
 

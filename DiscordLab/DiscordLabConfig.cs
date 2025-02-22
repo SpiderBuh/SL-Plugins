@@ -7,7 +7,7 @@ namespace DiscordLab
 {
 	public class DiscordLabConfig : CustomPluginConfig
 	{
-		public int BotPort { get; set; }
-		public string BotAddress { get; set; }
+		public int BotPort { get; set; } = 8888;
+		public string BotAddress { get; set; } = "127.0.0.1";
 	}
 }

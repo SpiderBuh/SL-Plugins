@@ -40,7 +40,7 @@ namespace DynamicTags.Systems
 				ServerPort = Server.Port.ToString(),
 			};
 
-			Extensions.Post(DynamicTagsPlugin.Config.ApiEndpoint + "scpsl/report", new StringContent(JsonConvert.SerializeObject(reportDetails), Encoding.UTF8, "application/json"));
+			Extensions.Post(DynamicTagsPlugin.Config.ApiUrl + "scpsl/report", new StringContent(JsonConvert.SerializeObject(reportDetails), Encoding.UTF8, "application/json"));
 
 			ReportDict.AddToOrReplaceValue(ev.Player.UserId, DateTime.Now);
 		}
