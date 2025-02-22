@@ -26,7 +26,6 @@ namespace CustomCommands
 		Human_Suicide = 5,
 	}
 
-
 	public enum VoteType
 	{
 		NONE = 0,
@@ -64,7 +63,7 @@ namespace CustomCommands
 				new Features.LateSpawn.LateSpawn(Config.EnableLateSpawn && (Config.LateSpawnTime > 0)),
 				new Features.SurfaceLightingFix.SurfaceLightingFix(Config.EnableAdditionalSurfaceLighting),
 				new Features.DamageAnnouncements.DamageAnnouncements(Config.EnableDamageAnnouncements),
-				new Features.SCP3114Enable.SCP3114Overhaul(Config.EnableScp079Removal),
+				new Features.SCP3114Enable.SCP3114Overhaul(Config.EnableSCP3114),
 				new Features.SCPSwap.SCPSwap(Config.EnableScpSwap),
 				new Features.Voting.Votes(Config.EnablePlayerVoting),
 				new Features.Blackouts.Blackouts(Config.EnableBlackout),
@@ -84,7 +83,6 @@ namespace CustomCommands
 			ServerSpecificSettingsSync.SendToAll();
 
 			RagdollManager.OnRagdollSpawned += Features.Ragdoll.PocketRagdollHandler.RagdollManager_OnRagdollSpawned;
-
 		}
 
 		public override void Disable()
