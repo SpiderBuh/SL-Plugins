@@ -1,8 +1,4 @@
-﻿using CustomCommands.Features.Humans;
-using CustomCommands.Features.Map;
-using CustomCommands.Features.Map.RollingBlackouts;
-using CustomCommands.Features.SCPs;
-using HarmonyLib;
+﻿using HarmonyLib;
 using PlayerRoles.Ragdolls;
 using RedRightHand.CustomSettings;
 using System.Linq;
@@ -13,7 +9,6 @@ using CustomCommands.Features;
 using CustomCommands.Core;
 using LabApi.Features.Console;
 using CustomCommands.Features.CustomSettings;
-using CustomCommands.Features.SCPSwap;
 
 namespace CustomCommands
 {
@@ -60,31 +55,28 @@ namespace CustomCommands
 			Harmony harmony = new Harmony("CC-Patching-Phegg");
 			harmony.PatchAll();
 
-			features = new CustomFeature[]
-			{
+			features =
+			[
 				new Features.DoorLocking.DoorLocking(Config.EnableDoorLocking),
-				//new Features.Events.GlobalEvents(),
-				//new Features.Humans.Disarming.DisarmingEvents(), #DISABLED
+				new Features.SCP079Removal.SCP079Removal(Config.EnableScp079Removal),
+				new Features.Disarming.BetterDisarming(Config.EnableBetterDisarming),
 				new Features.LateJoin.LateJoin(Config.EnableLateJoin && (Config.LateJoinTime > 0)),
 				new Features.LateSpawn.LateSpawn(Config.EnableLateSpawn && (Config.LateSpawnTime > 0)),
-				//new Features.Items.Weapons.WeaponEvents(),
 				new Features.SurfaceLightingFix.SurfaceLightingFix(Config.EnableAdditionalSurfaceLighting),
 				new Features.DamageAnnouncements.DamageAnnouncements(Config.EnableDamageAnnouncements),
-				//new Features.SCPs.SCP079Removal.RemovalEvents(), #DISABLED
-				//new Features.SCPs.SCP3114.SCP3114Overhaul(), #DISABLED
+				new Features.SCP3114Enable.SCP3114Overhaul(Config.EnableScp079Removal),
 				new Features.SCPSwap.SCPSwap(Config.EnableScpSwap),
-				//new Features.Voting.VotingEvents(),
-				//new Features.Events.WeeklyEvents.EventManager(),
-				//new Features.Events.WeeklyEvents.Events(),
-				//new Features.Map.RollingBlackouts.BlackoutEvents(), #DISABLED
-			};
+				new Features.Voting.Votes(Config.EnablePlayerVoting),
+				new Features.Blackouts.Blackouts(Config.EnableBlackout),
+				new Features.CustomWeapons.CustomWeapons(Config.EnableSpecialWeapons)
+			];
 
 			if (ServerSpecificSettingsSync.DefinedSettings == null)
-				ServerSpecificSettingsSync.DefinedSettings = new ServerSpecificSettingBase[0];
+				ServerSpecificSettingsSync.DefinedSettings = [];
 
 			var settings = new CustomSettingsBase[]
 			{
-				new CustomSCPSettings(),
+				new Features.SCPSwap.CustomSCPSettings(),
 				new CustomHumanSettings(),
 			};
 

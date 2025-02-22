@@ -14,11 +14,27 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace RedRightHand
 {
 	public static class Helpers
 	{
+		public static Vector3 RandomThrowableVelocity(Transform Transform)
+		{
+			Vector3 velocity = Vector3.zero;
+			velocity += Transform.forward * Random.Range(10f, 15f);
+			velocity += Transform.up * 1f;
+
+			if (Random.Range(1, 3) % 2 == 0)
+				velocity += Transform.right * Random.Range(0.1f, 2.5f);
+
+			else
+				velocity += Transform.right * -Random.Range(0.1f, 2.5f);
+
+			return velocity;
+		}
+
 		public static void SpawnGrenade<T>(Player Thrower, ItemType Item) where T : TimeGrenade =>
 	SpawnGrenade<T>(Thrower, Item, new Vector3(UnityEngine.Random.Range(0, 1), UnityEngine.Random.Range(0, 1), UnityEngine.Random.Range(0, 1)));
 
