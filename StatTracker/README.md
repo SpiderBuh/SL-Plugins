@@ -1,6 +1,6 @@
 # Stat Tracker
 Basic plugin to track player stats.
-Stats are NOT stored server side, and are cleared at the enc of each round. This plugin must be used with a custom API to store and handle the stat data.
+Stats are NOT stored server side, and are cleared at the end of each round. This plugin must be used with a custom API to store and handle the stat data.
 
 # Config
 | Config  | Default Value | Description |
