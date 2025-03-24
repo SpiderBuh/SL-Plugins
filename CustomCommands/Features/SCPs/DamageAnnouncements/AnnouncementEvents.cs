@@ -18,7 +18,7 @@ namespace CustomCommands.Features.SCPs.DamageAnnouncements
 
 			var plr = args.Player;
 			var trgt = args.Target;
-			if (trgt == null || plr == null || !(Round.IsRoundStarted && args.DamageHandler is AttackerDamageHandler dmgH && trgt.IsSCP) || dmgH.IsFriendlyFire)
+			if (trgt == null || plr == null || Round.IsRoundEnded || !(Round.IsRoundStarted && args.DamageHandler is AttackerDamageHandler dmgH && trgt.IsSCP) || dmgH.IsFriendlyFire)
 				return;
 			if (AnnouncementManager.ScpDamage.ContainsKey(plr.UserId))
 				AnnouncementManager.ScpDamage[plr.UserId] += dmgH.Damage;
