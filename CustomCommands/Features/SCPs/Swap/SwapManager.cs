@@ -42,8 +42,9 @@ namespace CustomCommands.Features.SCPs.Swap
             }
 			private void startRaffle(float time)
 			{
-                MEC.Timing.CallDelayed(5f, () =>
+                MEC.Timing.CallDelayed(time, () =>
                 {
+					bool NwMoment = false;
                     int draw = -1;
 					List<int> winners = new List<int>();
                     if (raffleParticipants.Count == 0) return;
@@ -65,12 +66,32 @@ namespace CustomCommands.Features.SCPs.Swap
                     draw = DrawGroup.First().Key;
 					DrawGroup.RemoveAt(0);
 
-					if (Player.TryGet(draw, out var drawPlr))
+				retryPlayer:
+
+					try
 					{
-						SwapHumanToScp(drawPlr);
-						winners.Add(draw);
+						if (Player.TryGet(draw, out var drawPlr))
+						{
+							SwapHumanToScp(drawPlr);
+							winners.Add(draw);
+							NwMoment = false;
+						}
+						else goto redraw;
+					} catch (Exception e)
+					{
+						Log.Error(e.Message);
+						if (NwMoment)
+						{
+							Log.Info($"Skipping raffle participant with ID {draw}");
+							NwMoment = false;
+							goto redraw;
+						} 
+						else
+						{
+							NwMoment = true;
+							goto retryPlayer;
+                        }
 					}
-					else goto redraw;
 
                     if (SCPsToReplace == 0)
                         finishRaffle(winners);
@@ -81,9 +102,13 @@ namespace CustomCommands.Features.SCPs.Swap
 			{
                 while (raffleParticipants.Count > 0)
                 {
-					if (!winners.Contains(raffleParticipants.Last().Key))
-                    if (Player.TryGet(raffleParticipants.Last().Key, out var plr))
-                        plr.ReceiveHint("You lost the raffle.", 3);
+					try
+					{
+						if (!winners.Contains(raffleParticipants.Last().Key))
+							if (Player.TryGet(raffleParticipants.Last().Key, out var plr))
+								plr.ReceiveHint("You lost the raffle.", 3);
+					}
+					catch (Exception e) { Log.Error(e.Message); }
                     raffleParticipants.Remove(raffleParticipants.Last().Key);
                 }
 				IsActive = false;
