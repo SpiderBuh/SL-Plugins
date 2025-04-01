@@ -102,9 +102,13 @@ namespace CustomCommands.Features.SCPs.Swap
 			{
                 while (raffleParticipants.Count > 0)
                 {
-					if (!winners.Contains(raffleParticipants.Last().Key))
-                    if (Player.TryGet(raffleParticipants.Last().Key, out var plr))
-                        plr.ReceiveHint("You lost the raffle.", 3);
+					try
+					{
+						if (!winners.Contains(raffleParticipants.Last().Key))
+							if (Player.TryGet(raffleParticipants.Last().Key, out var plr))
+								plr.ReceiveHint("You lost the raffle.", 3);
+					}
+					catch (Exception e) { Log.Error(e.Message); }
                     raffleParticipants.Remove(raffleParticipants.Last().Key);
                 }
 				IsActive = false;
