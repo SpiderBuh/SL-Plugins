@@ -31,7 +31,7 @@ namespace CustomCommands.Features.SurfaceLightFix
 			}
 
 			var lightGO = GameObject.Instantiate(NetworkClient.prefabs.First(r => r.Value.name == "LightSourceToy").Value);
-			lightGO.transform.position = new Vector3(135, 1024, -43);
+			lightGO.transform.position = new Vector3(135, 324, -43);
 			NetworkServer.Spawn(lightGO);
 			surfaceLight = lightGO.GetComponent<LightSourceToy>();
 
