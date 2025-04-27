@@ -17,7 +17,7 @@ namespace CustomCommands.Features.CustomWeapons.Weapons
 
 		public override void ShootWeapon(Player player)
 		{
-			Helpers.SpawnGrenade<Scp018Projectile>(player, ItemType.SCP018, Helpers.RandomThrowableVelocity(player.Camera.transform));
+			Helpers.SpawnGrenade<InventorySystem.Items.ThrowableProjectiles.Scp018Projectile>(player, ItemType.SCP018, Helpers.RandomThrowableVelocity(player.Camera.transform));
 		}
 	}
 }

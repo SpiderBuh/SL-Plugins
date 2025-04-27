@@ -42,7 +42,7 @@ namespace CustomCommands.Features.SCP3114Enable
 		{
 			if (ev.DamageHandler is Scp3114DamageHandler sDH && sDH.Subtype == Scp3114DamageHandler.HandlerType.Slap)
 			{
-				ev.Target.EnableEffect<Hemorrhage>(10);
+				ev.Player.EnableEffect<Hemorrhage>(10);
 			}
 		}
 
@@ -62,7 +62,7 @@ namespace CustomCommands.Features.SCP3114Enable
 		{
 			#region Spawns Ragdoll
 
-			RoomIdUtils.TryFindRoom(RoomName.EzEvacShelter, FacilityZone.Entrance, RoomShape.Endroom, out RoomIdentifier roomIdentifier);
+			RoomUtils.TryFindRoom(RoomName.EzEvacShelter, FacilityZone.Entrance, RoomShape.Endroom, out RoomIdentifier roomIdentifier);
 			Transform transform = roomIdentifier.transform;
 
 			RoleTypeId role = new System.Random().Next(0, 2) == 1 ? RoleTypeId.ClassD : RoleTypeId.Scientist;

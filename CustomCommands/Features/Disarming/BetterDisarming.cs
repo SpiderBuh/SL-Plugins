@@ -29,10 +29,10 @@ namespace CustomCommands.Features.Disarming
 		{
 			if (ev.DamageHandler is FirearmDamageHandler fDH)
 			{
-				var isVicClassD = ev.Target.Role == RoleTypeId.ClassD;
-				var isAtkrFacGuard = ev.Player.Role == RoleTypeId.FacilityGuard;
-				var hasVicDisarmed = !disarmedUsers.Contains(ev.Target.UserId);
-				var hasExclusionItems = !ev.Target.ReferenceHub.inventory.UserInventory.Items.Where(i =>
+				var isVicClassD = ev.Player.Role == RoleTypeId.ClassD;
+				var isAtkrFacGuard = ev.Attacker.Role == RoleTypeId.FacilityGuard;
+				var hasVicDisarmed = !disarmedUsers.Contains(ev.Player.UserId);
+				var hasExclusionItems = !ev.Player.ReferenceHub.inventory.UserInventory.Items.Where(i =>
 					i.Value.Category == ItemCategory.Firearm ||
 					i.Value.Category == ItemCategory.SpecialWeapon ||
 					(i.Value.Category == ItemCategory.SCPItem && i.Value.ItemTypeId != ItemType.SCP330) ||

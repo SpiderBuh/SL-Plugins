@@ -35,8 +35,6 @@ namespace CustomCommands
 
 	public class CustomCommandsPlugin : CustomPluginCore<Config>
 	{
-		public static Config Config;
-
 		public override string ConfigFileName => "CustomCommandsConfig.yml";
 
 		public override string Name => "Custom Commands";
@@ -46,6 +44,11 @@ namespace CustomCommands
 		public override Version Version => new(2, 0, 0);
 
 		public CustomFeature[] features;
+
+		public override void LoadConfigs()
+		{
+			Config = LoadPluginConfigs<Config>();
+		}
 
 		public override void Enable()
 		{

@@ -16,7 +16,7 @@ namespace CustomCommands.Features.LateSpawn
 	{
 		public static bool LateRespawnPaused = false;
 		DateTime lastRespawn;
-		Team lastTeam;
+		Faction lastTeam;
 
 		public List<Player> lateSpawnPlayers = new List<Player>();
 
@@ -28,13 +28,13 @@ namespace CustomCommands.Features.LateSpawn
 		public override void OnServerWaveRespawned(WaveRespawnedEventArgs ev)
 		{
 			lastRespawn = DateTime.Now;
-			lastTeam = ev.Team;
+			lastTeam = ev.Wave.Faction;
 
 			Timing.CallDelayed(CustomCommandsPlugin.Config.LateSpawnTime, () =>
 			{
 				foreach (var a in lateSpawnPlayers)
 				{
-					if (lastTeam == Team.FoundationForces)
+					if (lastTeam == Faction.FoundationStaff)
 						a.SetRole(RoleTypeId.NtfPrivate, RoleChangeReason.Respawn, RoleSpawnFlags.All);
 					else
 						a.SetRole(RoleTypeId.ChaosRifleman, RoleChangeReason.Respawn, RoleSpawnFlags.All);

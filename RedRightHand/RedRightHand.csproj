@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Commands\ICustomCommand.cs" />
+    <Compile Include="CustomPlugin\CustomPluginConfig.cs" />
     <Compile Include="CustomSettings\CustomSettingsBase.cs" />
     <Compile Include="CustomSettings\CustomSettingsManager.cs" />
     <Compile Include="Extensions.cs" />
@@ -40,7 +41,6 @@
     <Compile Include="Navigation\NavMeshComponents\NavMeshModifier.cs" />
     <Compile Include="Navigation\NavMeshComponents\NavMeshModifierVolume.cs" />
     <Compile Include="Navigation\NavMeshComponents\NavMeshSurface.cs" />
-    <Compile Include="CustomPlugin\CustomPluginConfig.cs" />
     <Compile Include="CustomPlugin\CustomPluginCore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -95,10 +95,10 @@ namespace StatTracker
 
 		public override void OnPlayerHurt(PlayerHurtEventArgs ev)
 		{
-			if (!(ev.DamageHandler is AttackerDamageHandler aDH) || !StatData.ContainsKey(ev.Target.UserId) || !StatData.ContainsKey(aDH.Attacker.Hub.authManager.UserId))
+			if (!(ev.DamageHandler is AttackerDamageHandler aDH) || !StatData.ContainsKey(ev.Player.UserId) || !StatData.ContainsKey(aDH.Attacker.Hub.authManager.UserId))
 				return;
 
-			var targ = ev.Target;
+			var targ = ev.Player;
 			var atkr = Player.Get(aDH.Attacker.Hub);
 
 			if (!aDH.IsFriendlyFire && targ.Role != RoleTypeId.ClassD)

@@ -37,7 +37,7 @@ namespace TutorialPlus
 
 		public override void OnPlayerChangedRole(PlayerChangedRoleEventArgs ev)
 		{
-			if (ev.NewRole == RoleTypeId.Tutorial && ev.ChangeReason == RoleChangeReason.RemoteAdmin)
+			if (ev.NewRole.RoleTypeId == RoleTypeId.Tutorial && ev.ChangeReason == RoleChangeReason.RemoteAdmin)
 			{
 				if (TutorialPlusPlugin.Config.TutorialBypass)
 				{
@@ -60,7 +60,7 @@ namespace TutorialPlus
 					FpcNoclip.PermitPlayer(ev.Player.ReferenceHub);
 				}
 			}
-			else if (ev.OldRole.RoleTypeId == RoleTypeId.Tutorial)
+			else if (ev.OldRole == RoleTypeId.Tutorial)
 			{
 				if (TutorialPlusPlugin.Config.TutorialBypass)
 				{

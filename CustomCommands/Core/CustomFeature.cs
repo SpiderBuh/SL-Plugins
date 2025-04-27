@@ -1,4 +1,5 @@
 ﻿using LabApi.Events.CustomHandlers;
+using LabApi.Features.Console;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,8 @@ namespace CustomCommands.Core
 		public virtual void OnEnabled()
 		{
 			isEnabled = true;
+			Logger.Info($"LOADING {this.GetType().Name}");
+
 			CustomHandlersManager.RegisterEventsHandler(this);
 		}
 		public virtual void OnDisabled()

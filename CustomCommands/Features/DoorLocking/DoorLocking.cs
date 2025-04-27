@@ -6,6 +6,7 @@ using RedRightHand.CustomPlugin;
 using CustomCommands.Core;
 using LabApi.Events.Arguments.PlayerEvents;
 using System.Collections.Generic;
+using LabApi.Features.Console;
 
 namespace CustomCommands.Features.DoorLocking
 {
@@ -16,6 +17,7 @@ namespace CustomCommands.Features.DoorLocking
 
 		public DoorLocking(bool configSetting) : base(configSetting)
 		{
+			Logger.Info("MEOW??");
 		}
 
 		public enum LockType
@@ -27,7 +29,7 @@ namespace CustomCommands.Features.DoorLocking
 		{
 			if (LockingDict.TryGetValue(ev.Player.UserId, out LockType lockType))
 			{
-				if (ev.Door.Permissions == KeycardPermissions.None)
+				if (ev.Door.Permissions == DoorPermissionFlags.None)
 				{
 					if (lockType == LockType.Lock)
 						ev.IsAllowed = false;

@@ -35,7 +35,7 @@ namespace CustomCommands.Commands.Spawn
 				if (plr.Role == PlayerRoles.RoleTypeId.Spectator || plr.Role == PlayerRoles.RoleTypeId.Overwatch)
 					continue;
 
-				Helpers.SpawnGrenade<Scp018Projectile>(plr, ItemType.SCP018);
+				Helpers.SpawnGrenade<InventorySystem.Items.ThrowableProjectiles.Scp018Projectile>(plr, ItemType.SCP018);
 			}
 
 			response = $"Spawned SCP-018 on {players.Count} {(players.Count > 1 ? "players" : "player")}";

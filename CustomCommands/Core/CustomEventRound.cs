@@ -19,7 +19,7 @@ namespace CustomCommands.Core
 
 		public override void OnPlayerInteractingDoor(PlayerInteractingDoorEventArgs ev)
 		{
-			if (ev.Door.Permissions != Interactables.Interobjects.DoorUtils.KeycardPermissions.None)
+			if (ev.Door.Permissions != Interactables.Interobjects.DoorUtils.DoorPermissionFlags.None)
 				ev.IsAllowed = false;
 		}
 

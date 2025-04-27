@@ -20,8 +20,8 @@ namespace CustomCommands.Features.DamageAnnouncements
 			if (!CustomCommandsPlugin.Config.EnableDamageAnnouncements)
 				return;
 
-			var plr = ev.Player;
-			var trgt = ev.Target;
+			var plr = ev.Attacker;
+			var trgt = ev.Player;
 			if (trgt == null || plr == null || !(Round.IsRoundStarted && ev.DamageHandler is AttackerDamageHandler dmgH && trgt.IsSCP) || dmgH.IsFriendlyFire)
 				return;
 			if (ScpDamage.ContainsKey(plr.UserId))

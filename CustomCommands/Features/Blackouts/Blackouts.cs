@@ -54,7 +54,7 @@ namespace CustomCommands.Features.Blackouts
 						instance.ServerFlickerLights(CustomCommandsPlugin.Config.BlackoutDuration);
 
 				foreach (var door in DoorVariant.AllDoors.Where(r => r.IsInZone(MapGeneration.FacilityZone.HeavyContainment)))
-					if (door is IDamageableDoor iDD && door.RequiredPermissions.RequiredPermissions == KeycardPermissions.None && !door.name.Contains("LCZ"))
+					if (door is IDamageableDoor iDD && door.RequiredPermissions.RequiredPermissions == DoorPermissionFlags.None && !door.name.Contains("LCZ"))
 						door.NetworkTargetState = true;
 
 				foreach (var tesla in TeslaGate.AllGates)
@@ -76,7 +76,7 @@ namespace CustomCommands.Features.Blackouts
 
 		public override void OnPlayerInteractingDoor(PlayerInteractingDoorEventArgs ev)
 		{
-			if (RoomLightController.IsInDarkenedRoom(ev.Player.Position) && ev.Door.Permissions == KeycardPermissions.None)
+			if (RoomLightController.IsInDarkenedRoom(ev.Player.Position) && ev.Door.Permissions == DoorPermissionFlags.None)
 				ev.IsAllowed = false;
 		}
 

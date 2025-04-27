@@ -137,32 +137,32 @@ namespace DiscordLab
 		}
 		public override void OnPlayerHurting(PlayerHurtingEventArgs args)
 		{
-			if (!args.IsAllowed || args.Player == null || args.Target == null || !Extensions.RoundInProgress())
+			if (!args.IsAllowed || args.Player == null || args.Player == null || !Extensions.RoundInProgress())
 				return;
 
 			if (args.DamageHandler is AttackerDamageHandler aDH)
 			{
-				if (aDH.IsSuicide || args.Player.UserId == args.Target.UserId)
+				if (aDH.IsSuicide || args.Player.UserId == args.Player.UserId)
 				{
-					BotLink.Instance.SendMessage(new Msg($"{args.Target.Nickname} -> (SELF) {Math.Round(aDH.Damage, 1)} ({aDH.GetDamageSource()})"));
+					BotLink.Instance.SendMessage(new Msg($"{args.Player.Nickname} -> (SELF) {Math.Round(aDH.Damage, 1)} ({aDH.GetDamageSource()})"));
 				}
-				else if (aDH.IsFriendlyFire || Extensions.IsFF(args.Target, args.Player))
+				else if (aDH.IsFriendlyFire || Extensions.IsFF(args.Player, args.Attacker))
 				{
-					BotLink.Instance.SendMessage(new Msg($"**{args.Player.Role} {args.Player.ToLogString()} -> {args.Target.Role} {args.Target.ToLogString()} -> {Math.Round(aDH.Damage, 1)} ({aDH.GetDamageSource()})**"));
+					BotLink.Instance.SendMessage(new Msg($"**{args.Attacker.Role} {args.Attacker.ToLogString()} -> {args.Player.Role} {args.Player.ToLogString()} -> {Math.Round(aDH.Damage, 1)} ({aDH.GetDamageSource()})**"));
 				}
-				else if (args.Target.IsDisarmed && !args.Player.ReferenceHub.IsSCP())
+				else if (args.Player.IsDisarmed && !args.Attacker.ReferenceHub.IsSCP())
 				{
-					BotLink.Instance.SendMessage(new Msg($"__{args.Player.Role} {args.Player.ToLogString()} -> {args.Target.Role} {args.Target.ToLogString()} -> {Math.Round(aDH.Damage, 1)} ({aDH.GetDamageSource()})__"));
+					BotLink.Instance.SendMessage(new Msg($"__{args.Attacker.Role} {args.Attacker.ToLogString()} -> {args.Player.Role} {args.Player.ToLogString()} -> {Math.Round(aDH.Damage, 1)} ({aDH.GetDamageSource()})__"));
 				}
 				else
 				{
 					if (aDH.Damage >= 1)
-						BotLink.Instance.SendMessage(new Msg($"{args.Player.Nickname} -> {args.Target.Nickname} -> {Math.Round(aDH.Damage, 1)} ({aDH.GetDamageSource()} {aDH.Hitbox})"));
+						BotLink.Instance.SendMessage(new Msg($"{args.Attacker.Nickname} -> {args.Player.Nickname} -> {Math.Round(aDH.Damage, 1)} ({aDH.GetDamageSource()} {aDH.Hitbox})"));
 				}
 			}
 			else if (args.DamageHandler is WarheadDamageHandler wDH)
 			{
-				BotLink.Instance.SendMessage(new Msg($"Warhead damaged {args.Target.ToLogString()} {Math.Round(wDH.Damage, 1)}"));
+				BotLink.Instance.SendMessage(new Msg($"Warhead damaged {args.Player.ToLogString()} {Math.Round(wDH.Damage, 1)}"));
 			}
 			else if (args.DamageHandler is UniversalDamageHandler)
 			{
@@ -171,10 +171,10 @@ namespace DiscordLab
 		}
 		public override void OnPlayerChangedRole(PlayerChangedRoleEventArgs args)
 		{
-			if (args.NewRole == RoleTypeId.Spectator || args.NewRole == RoleTypeId.None || args.OldRole.RoleTypeId == RoleTypeId.Spectator || args.OldRole.RoleTypeId == RoleTypeId.None)
+			if (args.NewRole.RoleTypeId == RoleTypeId.Spectator || args.NewRole.RoleTypeId == RoleTypeId.None || args.OldRole == RoleTypeId.Spectator || args.OldRole == RoleTypeId.None)
 				return;
 
-			BotLink.Instance.SendMessage(new Msg($"{args.Player.ToLogString()} changed from {args.OldRole.RoleTypeId} to {args.NewRole} ({args.ChangeReason})"));
+			BotLink.Instance.SendMessage(new Msg($"{args.Player.ToLogString()} changed from {args.OldRole} to {args.NewRole} ({args.ChangeReason})"));
 		}
 		public override void OnPlayerSpawned(PlayerSpawnedEventArgs args)
 		{
@@ -251,7 +251,7 @@ namespace DiscordLab
 
 		#region World
 
-		public override void OnServerGrenadeExploded(GrenadeExplodedEventArgs args) => BotLink.Instance.SendMessage(($"Frag grenade ({args.Player.Nickname}) exploded"));
+		public override void OnServerProjectileExploded(ProjectileExplodedEventArgs args) => BotLink.Instance.SendMessage(($"Frag grenade ({args.Player.Nickname}) exploded"));
 
 
 		#endregion

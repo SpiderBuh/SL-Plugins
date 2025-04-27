@@ -21,6 +21,12 @@ namespace DynamicTags
 		public Reporting Reporting { get; set; }
 		public StaffTracker StaffTracker { get; set; }
 
+		public override void LoadConfigs()
+		{
+			base.LoadConfigs();
+			Config = LoadPluginConfigs<Config>();
+		}
+
 		public override void Disable()
 		{
 			//Registers the events used in the DynamicTags class

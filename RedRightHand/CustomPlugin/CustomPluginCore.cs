@@ -20,19 +20,14 @@ namespace RedRightHand.CustomPlugin
 
 	public abstract class CustomPluginCore<T> : CustomPluginCore where T : CustomPluginConfig
 	{
-		public static T Config;
+		public static T Config { get; set; }
 		private bool _correctConfigLoaded = false;
 		public abstract string ConfigFileName { get; }
 
-		public override void LoadConfigs()
+		public TConfig LoadPluginConfigs<TConfig>() where TConfig : class, new()
 		{
-			base.LoadConfigs();
-
-			Logger.Info($"Loading Config");
-
-#pragma warning disable IDE0059 // Unnecessary assignment of a value
-			_correctConfigLoaded = this.TryLoadConfig(ConfigFileName, out CustomPluginConfig Config);
-#pragma warning restore IDE0059 // Unnecessary assignment of a value
+			_correctConfigLoaded = this.TryLoadConfig(ConfigFileName, out TConfig loadedConfigs, false);
+			return loadedConfigs;
 		}
 
 		public override void Enable()

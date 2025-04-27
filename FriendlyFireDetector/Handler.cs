@@ -42,21 +42,21 @@ namespace FriendlyFireDetector
 
 		public override void OnPlayerHurting(PlayerHurtingEventArgs ev)
 		{
-			if (FFDPlugin.Paused || !Extensions.RoundInProgress() || !IsValidPlayer(ev.Player) || !IsValidPlayer(ev.Target) || ev.Target.UserId == ev.Player.UserId || !(ev.DamageHandler is AttackerDamageHandler aDH))
+			if (FFDPlugin.Paused || !Extensions.RoundInProgress() || !IsValidPlayer(ev.Player) || !IsValidPlayer(ev.Player) || ev.Player.UserId == ev.Attacker.UserId || !(ev.DamageHandler is AttackerDamageHandler aDH))
 				return;
 
-			var atkrHasPrevRole = PreviousRoles.TryGetValue(ev.Player.UserId, out var atkrPrevRole);
+			var atkrHasPrevRole = PreviousRoles.TryGetValue(ev.Attacker.UserId, out var atkrPrevRole);
 
 			//Checks both the attacker's current role and possible previous roles for if it is considered FF against the target's role
-			if (!ev.Target.IsFF(ev.Player))
+			if (!ev.Player.IsFF(ev.Attacker))
 				return;
 
 			int friendlies = 0;
 			int hostiles = 0;
 
-			foreach (var plr in GetNearbyPlayers(ev.Player))
+			foreach (var plr in GetNearbyPlayers(ev.Attacker))
 			{
-				if (plr.IsFF(ev.Player))
+				if (plr.IsFF(ev.Attacker))
 					friendlies++;
 				else
 					hostiles++;
@@ -65,10 +65,10 @@ namespace FriendlyFireDetector
 			if (hostiles > 0)
 				return;
 
-			if (FFCounts.TryGetValue(ev.Player.UserId, out var fFCount))
+			if (FFCounts.TryGetValue(ev.Attacker.UserId, out var fFCount))
 			{
 				if(fFCount.Count > 5 && (DateTime.Now - fFCount.LastUpdate).TotalSeconds < 10)
-					ev.Player.Damage(2^((fFCount.Count-5)/2), "FriendlyFire reversal");
+					ev.Attacker.Damage(2^((fFCount.Count-5)/2), "FriendlyFire reversal");
 				
 
 				fFCount.Count++;

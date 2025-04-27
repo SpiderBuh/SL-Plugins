@@ -29,6 +29,11 @@ namespace StatTracker
 			CustomHandlersManager.UnregisterEventsHandler(Events);
 		}
 
+		public override void LoadConfigs()
+		{
+			base.LoadConfigs();
+			Config = LoadPluginConfigs<Config>();
+		}
 		public class Stats
 		{
 			public Stats(Player plr)

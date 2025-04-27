@@ -18,6 +18,12 @@ namespace TutorialPlus
 
 		public override Version Version => new("1.1.0");
 
+		public override void LoadConfigs()
+		{
+			base.LoadConfigs();
+			Config = LoadPluginConfigs<Config>();
+		}
+
 		public override void Enable()
 		{
 			base.Enable();

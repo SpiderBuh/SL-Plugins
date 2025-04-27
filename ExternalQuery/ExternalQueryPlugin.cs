@@ -18,6 +18,12 @@ namespace ExternalQuery
 
 		public override string ConfigFileName => "ExternalQuery.yml";
 
+		public override void LoadConfigs()
+		{
+			base.LoadConfigs();
+			Config = LoadPluginConfigs<Config>();
+		}
+
 		public override void Disable()
 		{
 

@@ -1,4 +1,5 @@
 ﻿using CommandSystem;
+using CustomCommands.Commands.Spawn;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,10 +24,18 @@ namespace CustomCommands.Commands.Check
 			RegisterCommand(new Mute());
 		}
 
+		public static CheckParent Create()
+		{
+			var cleanupCommand = new CheckParent();
+			cleanupCommand.LoadGeneratedCommands();
+			return cleanupCommand;
+		}
+
 		protected override bool ExecuteParent(ArraySegment<string> arguments, ICommandSender sender, out string response)
 		{
 			response = "Please provide a valid subcommand";
 			return false;
 		}
+
 	}
 }

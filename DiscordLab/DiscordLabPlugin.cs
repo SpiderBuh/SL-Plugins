@@ -17,6 +17,12 @@ namespace DiscordLab
 
 		public override Version Version => new(1,1,0);
 
+		public override void LoadConfigs()
+		{
+			base.LoadConfigs();
+			Config = LoadPluginConfigs<DiscordLabConfig>();
+		}
+
 		public override void Disable()
 		{
 			CustomHandlersManager.UnregisterEventsHandler(Events);

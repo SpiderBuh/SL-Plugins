@@ -18,7 +18,7 @@ namespace CustomCommands.Features.Voting.Commands
 		{
 			if (sender is PlayerCommandSender pSender)
 			{
-				if (!Voting.VoteInProgress)
+				if (!Votes.VoteInProgress)
 				{
 					response = "There is no vote in progress";
 					return false;
@@ -26,13 +26,13 @@ namespace CustomCommands.Features.Voting.Commands
 
 				var plr = Player.Get(pSender.ReferenceHub);
 
-				if (Voting.PlayerVotes.ContainsKey(plr.UserId))
+				if (Votes.PlayerVotes.ContainsKey(plr.UserId))
 				{
 					response = "You have already voted";
 					return false;
 				}
 
-				Voting.PlayerVotes.Add(plr.UserId, false);
+				Votes.PlayerVotes.Add(plr.UserId, false);
 
 				response = "You have voted no";
 				return true;
