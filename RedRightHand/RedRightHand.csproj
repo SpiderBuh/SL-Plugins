@@ -35,6 +35,7 @@
     <Compile Include="CustomPlugin\CustomPluginConfig.cs" />
     <Compile Include="CustomSettings\CustomSettingsBase.cs" />
     <Compile Include="CustomSettings\CustomSettingsManager.cs" />
+    <Compile Include="DataStores\FFDStore.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="Navigation\NavMeshComponents\NavMeshLink.cs" />

@@ -21,34 +21,35 @@ using RedRightHand;
 using Extensions = RedRightHand.Extensions;
 using LabApi.Features.Wrappers;
 using LabApi.Events.Arguments.ServerEvents;
+using RedRightHand.DataStores;
+using LabApi.Features.Console;
+using Logger = LabApi.Features.Console.Logger;
 
 namespace FriendlyFireDetector
 {
 	public class Handler : CustomEventsHandler
 	{
-		public readonly Dictionary<string, FFCount> FFCounts = new Dictionary<string, FFCount>();
-		public readonly Dictionary<string, RoleTypeId> PreviousRoles = new Dictionary<string, RoleTypeId>();
-		public readonly Dictionary<string, List<GrenadeThrowerInfo>> GrenadeInfo = new Dictionary<string, List<GrenadeThrowerInfo>>();
-		public readonly Dictionary<string, FFInfo> FFInfo = new Dictionary<string, FFInfo>();
 		public static bool Paused;
 
-		public override void OnPlayerSpawned(PlayerSpawnedEventArgs ev)
+		public override void OnPlayerChangedRole(PlayerChangedRoleEventArgs ev)
 		{
-			if (!IsValidPlayer(ev.Player) || ev.Role.RoleTypeId == RoleTypeId.None)
+			if (!IsValidPlayer(ev.Player) || ev.NewRole.RoleTypeId == RoleTypeId.None)
 				return;
 
-			PreviousRoles.AddToOrReplaceValue(ev.Player.UserId, ev.Role.RoleTypeId);
+			var ffdData = ev.Player.GetDataStore<FFDStore>();
+			ffdData.PreviousRole = ev.OldRole;
 		}
 
 		public override void OnPlayerHurting(PlayerHurtingEventArgs ev)
 		{
-			if (FFDPlugin.Paused || !Extensions.RoundInProgress() || !IsValidPlayer(ev.Player) || !IsValidPlayer(ev.Player) || ev.Player.UserId == ev.Attacker.UserId || !(ev.DamageHandler is AttackerDamageHandler aDH))
+			if (FFDPlugin.Paused || !Extensions.RoundInProgress() || !IsValidPlayer(ev.Player) || !IsValidPlayer(ev.Attacker) || ev.Player.UserId == ev.Attacker.UserId 
+				|| !(ev.DamageHandler is AttackerDamageHandler aDH))
 				return;
 
-			var atkrHasPrevRole = PreviousRoles.TryGetValue(ev.Attacker.UserId, out var atkrPrevRole);
+			var atkrStore = ev.Attacker.GetDataStore<FFDStore>();
 
 			//Checks both the attacker's current role and possible previous roles for if it is considered FF against the target's role
-			if (!ev.Player.IsFF(ev.Attacker))
+			if (!ev.Attacker.IsFF(ev.Player, atkrStore.PreviousRole != RoleTypeId.None))
 				return;
 
 			int friendlies = 0;
@@ -56,7 +57,7 @@ namespace FriendlyFireDetector
 
 			foreach (var plr in GetNearbyPlayers(ev.Attacker))
 			{
-				if (plr.IsFF(ev.Attacker))
+				if (ev.Attacker.IsFF(plr, false))
 					friendlies++;
 				else
 					hostiles++;
@@ -65,30 +66,29 @@ namespace FriendlyFireDetector
 			if (hostiles > 0)
 				return;
 
-			if (FFCounts.TryGetValue(ev.Attacker.UserId, out var fFCount))
-			{
-				if(fFCount.Count > 5 && (DateTime.Now - fFCount.LastUpdate).TotalSeconds < 10)
-					ev.Attacker.Damage(2^((fFCount.Count-5)/2), "FriendlyFire reversal");
-				
+			ev.IsAllowed = false;
+			atkrStore.BlockLog = true;
 
-				fFCount.Count++;
-				fFCount.LastUpdate = DateTime.UtcNow;
+			if (atkrStore.ReverseFFEnabled)
+			{
+				ev.Attacker.Damage(aDH.Damage, ev.Attacker, armorPenetration: 100);
 			}
 			else
-				FFCounts.AddToOrReplaceValue(ev.Player.UserId, new FFCount(1));
-		}
+			{
+				//Logger.Info($"{2 ^ ((atkrStore.TriggerCount - 5))}");
 
-		public override void OnServerWaitingForPlayers()
-		{
-			FFCounts.Clear();
-			PreviousRoles.Clear();
-			GrenadeInfo.Clear();
-			FFInfo.Clear();
+				if (atkrStore.TriggerCount > 5 && (DateTime.Now - atkrStore.LastTrigger).TotalSeconds < 10)
+					ev.Attacker.Damage(2 ^ ((atkrStore.TriggerCount - 5)), "FriendlyFire reversal");
+			}
+
+
+			atkrStore.TriggerCount++;
+			atkrStore.LastTrigger = DateTime.UtcNow;
 		}
 
 		private bool IsValidPlayer(Player plr)
 		{
-			return plr != null && !plr.IsNpc && !plr.IsServer && plr.IsOnline && !plr.IsTutorial;
+			return plr != null /*&& !plr.IsNpc */&& !plr.IsServer && plr.IsOnline && !plr.IsTutorial;
 		}
 
 		private List<Player> GetNearbyPlayers(Player atkr, bool rangeOnly = false)

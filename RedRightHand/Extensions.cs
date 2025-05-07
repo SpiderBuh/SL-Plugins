@@ -9,6 +9,7 @@ using PlayerRoles.PlayableScps.Scp939;
 using PlayerStatsSystem;
 using RedRightHand.Commands;
 using RedRightHand.CustomPlugin;
+using RedRightHand.DataStores;
 using RemoteAdmin;
 using System;
 using System.Collections.Generic;
@@ -208,9 +209,10 @@ namespace RedRightHand
 
 		public static string ToLogString(this Player plr) => $"{plr.Nickname} ({plr.UserId})";
 
-		public static bool IsChaos(this Player player, bool includeCivs = false)
+		public static bool IsChaos(this Player player, bool includeCivs = false) => IsChaos(player.Role, includeCivs);
+		public static bool IsChaos(this RoleTypeId player, bool includeCivs = false)
 		{
-			switch (player.Role)
+			switch (player)
 			{
 				case RoleTypeId.ChaosConscript:
 				case RoleTypeId.ChaosRifleman:
@@ -225,10 +227,10 @@ namespace RedRightHand
 					return false;
 			}
 		}
-
-		public static bool IsMtf(this Player player, bool includeCivs = false)
+		public static bool IsMtf(this Player player, bool includeCivs = false) => IsMtf(player.Role, includeCivs);
+		public static bool IsMtf(this RoleTypeId player, bool includeCivs = false)
 		{
-			switch (player.Role)
+			switch (player)
 			{
 				case RoleTypeId.FacilityGuard:
 				case RoleTypeId.NtfCaptain:
@@ -254,7 +256,7 @@ namespace RedRightHand
 			};
 		}
 
-		public static bool IsFF(this Player victim, Player Attacker)
+		public static bool IsFF(this Player victim, Player Attacker, bool CheckStore = false)
 		{
 			var victimRole = victim.ReferenceHub.roleManager.CurrentRole;
 			var AttackerRole = Attacker.ReferenceHub.roleManager.CurrentRole;
@@ -270,6 +272,23 @@ namespace RedRightHand
 			}
 			else if (IsMtf(victim, true) && IsMtf(Attacker, true))
 				return true;
+
+			if (CheckStore)
+			{
+				var ffdStore = Attacker.GetDataStore<FFDStore>();
+
+				if(ffdStore.PreviousRole == RoleTypeId.None)
+					return false;
+
+				if (IsChaos(victim, true) && IsChaos(ffdStore.PreviousRole, true))
+				{
+					if (victim.Role == RoleTypeId.ClassD && ffdStore.PreviousRole == RoleTypeId.ClassD)
+						return false;
+					return true;
+				}
+				else if (IsMtf(victim, true) && IsMtf(ffdStore.PreviousRole, true))
+					return true;
+			}
 
 			return false;
 		}

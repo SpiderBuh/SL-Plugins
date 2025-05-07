@@ -19,21 +19,15 @@ namespace DynamicTags.Systems.Commands
 
 		public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
 		{
-			if (sender is PlayerCommandSender pSender)
+			if (sender.CheckPermission(PlayerPermissions.PermissionsManagement))
 			{
-				if (sender.CheckPermission(PlayerPermissions.PermissionsManagement))
-				{
-					DynamicTags.UpdateTags(true);
+				DynamicTags.UpdateTags(true);
 
-					response = "Dynamic tags updated";
-					return true;
-				}
-				response = "You cannot run this command";
+				response = "Dynamic tags updated";
 				return true;
 			}
-
-			response = "This command must be run as a player command";
-			return false;
+			response = "You cannot run this command";
+			return true;
 		}
 	}
 }

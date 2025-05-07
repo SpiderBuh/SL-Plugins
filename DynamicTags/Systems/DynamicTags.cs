@@ -26,12 +26,19 @@ namespace DynamicTags.Systems
 				//Clears all previous tags held by the server (Prevents players from keeping tags when they have been removed from the external server).
 				Tags.Clear();
 
-				var response = await Extensions.Get(DynamicTagsPlugin.Config.ApiUrl + "games/gettags");
+				var response = await Extensions.Get(DynamicTagsPlugin.Config.ApiUrl + "players/gettags");
 
-				var tags = JsonConvert.DeserializeObject<TagData[]>(await response.Content.ReadAsStringAsync());
+				var respStr = await response.Content.ReadAsStringAsync();
+
+				//Logger.Debug(respStr);
+
+				var tags = JsonConvert.DeserializeObject<TagData[]>(respStr);
 
 				foreach (var a in tags)
 				{
+					if (string.IsNullOrEmpty(a.Tag))
+						continue;
+
 					if (a.UserID.StartsWith("7656"))
 						a.UserID = $"{a.UserID}@steam";
 					else if (ulong.TryParse(a.UserID, out ulong result))

@@ -19,26 +19,20 @@ namespace DynamicTags.Systems.Commands
 
 		public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
 		{
-			if (sender is PlayerCommandSender pSender)
+			if (sender.CheckPermission(PlayerPermissions.PermissionsManagement))
 			{
-				if (sender.CheckPermission(PlayerPermissions.PermissionsManagement))
+				List<string> tags = new List<string>();
+
+				foreach (var tag in DynamicTags.Tags)
 				{
-					List<string> tags = new List<string>();
-
-					foreach (var tag in DynamicTags.Tags)
-					{
-						tags.Add($"{tag.Key} | {tag.Value.Tag}");
-					}
-
-					response = string.Join("\n", tags);
-					return true;
+					tags.Add($"{tag.Key} | {tag.Value.Tag}");
 				}
-				response = "You cannot run this command";
+
+				response = string.Join("\n", tags);
 				return true;
 			}
-
-			response = "This command must be run as a player command";
-			return false;
+			response = "You cannot run this command";
+			return true;
 		}
 	}
 }

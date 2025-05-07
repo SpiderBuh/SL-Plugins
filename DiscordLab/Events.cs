@@ -20,6 +20,7 @@ using LabApi.Features.Enums;
 using LabApi.Events.CustomHandlers;
 using RedRightHand;
 using LabApi.Features.Console;
+using RedRightHand.DataStores;
 
 namespace DiscordLab
 {
@@ -142,7 +143,13 @@ namespace DiscordLab
 
 			if (args.DamageHandler is AttackerDamageHandler aDH)
 			{
-				if (aDH.IsSuicide || args.Player.UserId == args.Player.UserId)
+				//if (args.Attacker.GetDataStore<FFDStore>().BlockLog)
+				//{
+				//	args.Attacker.GetDataStore<FFDStore>().BlockLog = false;
+				//	BotLink.Instance.SendMessage(new Msg($"FFD BLOCKED {args.Attacker.ToLogString()} -> {args.Player.ToLogString()} -> {Math.Round(aDH.Damage, 1)}"));
+				//}
+
+				if (aDH.IsSuicide || args.Player.UserId == args.Attacker.UserId)
 				{
 					BotLink.Instance.SendMessage(new Msg($"{args.Player.Nickname} -> (SELF) {Math.Round(aDH.Damage, 1)} ({aDH.GetDamageSource()})"));
 				}
