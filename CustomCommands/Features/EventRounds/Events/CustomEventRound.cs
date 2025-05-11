@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CustomCommands.Core
+namespace CustomCommands.Features.EventRounds.Events
 {
 	public class CustomEventRound : CustomEventsHandler
 	{

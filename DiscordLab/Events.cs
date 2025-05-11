@@ -181,7 +181,7 @@ namespace DiscordLab
 			if (args.NewRole.RoleTypeId == RoleTypeId.Spectator || args.NewRole.RoleTypeId == RoleTypeId.None || args.OldRole == RoleTypeId.Spectator || args.OldRole == RoleTypeId.None)
 				return;
 
-			BotLink.Instance.SendMessage(new Msg($"{args.Player.ToLogString()} changed from {args.OldRole} to {args.NewRole} ({args.ChangeReason})"));
+			BotLink.Instance.SendMessage(new Msg($"{args.Player.ToLogString()} changed from {args.OldRole} to {args.NewRole.RoleTypeId} ({args.ChangeReason})"));
 		}
 		public override void OnPlayerSpawned(PlayerSpawnedEventArgs args)
 		{

@@ -1,4 +1,5 @@
 ﻿using CommandSystem;
+using CustomCommands.Commands.Player;
 using CustomCommands.Features.CustomWeapons.Weapons;
 using LabApi.Features.Wrappers;
 using RedRightHand;
@@ -7,10 +8,10 @@ using System;
 
 namespace CustomCommands.Features.CustomWeapons.Commands
 {
-	[CommandHandler(typeof(RemoteAdminCommandHandler))]
+	[CommandHandler(typeof(CustomWeaponParent))]
 	public class Ball : ICustomCommand
 	{
-		public string Command => "balllauncher";
+		public string Command => "ball";
 
 		public string[] Aliases { get; } = { "bl" };
 

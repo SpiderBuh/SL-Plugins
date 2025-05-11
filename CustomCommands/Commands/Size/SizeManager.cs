@@ -7,7 +7,7 @@ namespace CustomCommands.Features.Players.Size
 {
 	public static class SizeManager
 	{
-		public static void SetSize(this Player plr, int x, int y, int z)
+		public static void SetSize(this Player plr, float x, float y, float z)
 		{
 			var svrPlrs = Player.List;
 

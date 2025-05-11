@@ -22,6 +22,23 @@ namespace CustomCommands.Features.Voting
 
 		public static Dictionary<string, bool> PlayerVotes = new Dictionary<string, bool>();
 
+		public static void StartVote(VoteType type, string vStr)
+		{
+			SetVote(type, vStr);
+
+			foreach (var a in Player.GetAll())
+			{
+				a.SendBroadcast($"<b><color=#fa886b>[VOTE]</color></b> <color=#79b7ed>{vStr}</color>\nUse your console (Press ' to open) to vote now!", 15);
+				a.SendConsoleMessage("A vote has been started. Run the `.yes` command to vote yes, or `.no` command to vote no");
+			}
+
+			MEC.Timing.CallDelayed(3 * 60, () =>
+			{
+				Votes.EndVote();
+
+			});
+		}
+
 		public static void SetVote(VoteType type, string vStr)
 		{
 			CurrentVote = type;

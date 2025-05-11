@@ -6,10 +6,10 @@ using System;
 
 namespace CustomCommands.Features.CustomWeapons.Commands
 {
-	[CommandHandler(typeof(RemoteAdminCommandHandler))]
+	[CommandHandler(typeof(CustomWeaponParent))]
 	public class Grenade : ICustomCommand
 	{
-		public string Command => "grenadelauncher";
+		public string Command => "grenade";
 
 		public string[] Aliases { get; } = { "gl" };
 

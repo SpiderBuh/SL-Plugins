@@ -69,8 +69,16 @@ namespace CustomCommands
 				new Features.SCP3114Enable.SCP3114Overhaul(Config.EnableSCP3114),
 				new Features.SCPSwap.SCPSwap(Config.EnableScpSwap),
 				new Features.Voting.Votes(Config.EnablePlayerVoting),
-				new Features.Blackouts.Blackouts(Config.EnableBlackout),
-				new Features.CustomWeapons.CustomWeapons(Config.EnableSpecialWeapons)
+				new Features.RandomSize.RandomSize(Config.EnableRandomSizes),
+				new Features.CustomWeapons.CustomWeapons(Config.EnableSpecialWeapons),
+
+
+
+#if DEBUG
+				new Features.Blackouts.Blackouts(Config.EnableBlackout),		
+				new Features.TestingFeatures.TestingDummies(Config.EnableDummies),
+				new Features.Testing.Navigation.NavigationEvents(true),
+#endif
 			];
 
 			if (ServerSpecificSettingsSync.DefinedSettings == null)

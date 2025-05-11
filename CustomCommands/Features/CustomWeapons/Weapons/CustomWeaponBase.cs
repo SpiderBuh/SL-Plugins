@@ -44,11 +44,10 @@ namespace CustomCommands.Features.CustomWeapons.Weapons
 			}				
 		}
 
-		public abstract void ShootWeapon(Player player);
+		public virtual void ShootWeapon(Player player) { }
 
-		public virtual void HitPlayer(PlayerHurtingEventArgs ev)
-		{
+		public virtual void HitPlayer(PlayerHurtingEventArgs ev) { }
 
-		}
+		public virtual void PlaceBulletHole(PlayerPlacedBulletHoleEventArgs ev) { }
 	}
 }

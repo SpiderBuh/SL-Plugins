@@ -6,10 +6,10 @@ using System;
 
 namespace CustomCommands.Features.CustomWeapons.Commands
 {
-	[CommandHandler(typeof(RemoteAdminCommandHandler))]
+	[CommandHandler(typeof(CustomWeaponParent))]
 	public class Flash : ICustomCommand
 	{
-		public string Command => "flashlauncher";
+		public string Command => "flash";
 
 		public string[] Aliases { get; } = { "fl" };
 

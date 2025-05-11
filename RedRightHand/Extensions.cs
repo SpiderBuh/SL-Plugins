@@ -56,28 +56,31 @@ namespace RedRightHand
 				return false;
 			}
 
-			if (args.Count < cmd.Usage.Length)
+			if (cmd.Usage != null)
 			{
-				Response = $"Missing argument: {cmd.Usage[args.Count]}";
-				return false;
-			}
-
-			if (cmd.Usage.Contains("%player%"))
-			{
-				var index = cmd.Usage.IndexOf("%player%");
-
-				var hubs = RAUtils.ProcessPlayerIdOrNamesList(args, index, out _, false);
-
-				if (hubs.Count < 1)
+				if (args.Count < cmd.Usage.Length)
 				{
-					Response = $"No player(s) found for: {args.ElementAt(index)}";
+					Response = $"Missing argument: {cmd.Usage[args.Count]}";
 					return false;
 				}
-				else
+
+				if (cmd.Usage.Contains("%player%"))
 				{
-					foreach (var plr in hubs)
+					var index = cmd.Usage.IndexOf("%player%");
+
+					var hubs = RAUtils.ProcessPlayerIdOrNamesList(args, index, out _, false);
+
+					if (hubs.Count < 1)
 					{
-						Players.Add(Player.Get(plr));
+						Response = $"No player(s) found for: {args.ElementAt(index)}";
+						return false;
+					}
+					else
+					{
+						foreach (var plr in hubs)
+						{
+							Players.Add(Player.Get(plr));
+						}
 					}
 				}
 			}

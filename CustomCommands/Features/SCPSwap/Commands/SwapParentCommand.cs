@@ -11,6 +11,7 @@ namespace CustomCommands.Features.SCPSwap.Commands
 {
 	[CommandHandler(typeof(RemoteAdminCommandHandler))]
 	[CommandHandler(typeof(GameConsoleCommandHandler))]
+	[CommandHandler(typeof(ClientCommandHandler))]
 	public class SwapParentCommand : ParentCommand
 	{
 		public override string Command => "swap";

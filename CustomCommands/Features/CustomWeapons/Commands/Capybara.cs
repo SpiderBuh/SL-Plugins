@@ -7,13 +7,13 @@ using System;
 namespace CustomCommands.Features.CustomWeapons.Commands
 {
 	[CommandHandler(typeof(CustomWeaponParent))]
-	public class Ragdoll : ICustomCommand
+	public class Capybara : ICustomCommand
 	{
-		public string Command => "ragdoll";
+		public string Command => "capybara";
 
-		public string[] Aliases { get; } = { "rdl" };
+		public string[] Aliases { get; } = { "cbl" };
 
-		public string Description => "Launches ragdolls when you shoot your gun";
+		public string Description => "Launches Capybaras when you shoot your gun";
 
 		public string[] Usage { get; } = { };
 
@@ -30,16 +30,16 @@ namespace CustomCommands.Features.CustomWeapons.Commands
 
 			var plr = Player.Get(pSender.ReferenceHub);
 
-			if (!CustomWeapons.AvailableWeapons.TryGetValue(CustomWeapons.WeaponType.Ragdoll, out var customWeaponBase))
+			if (!CustomWeapons.AvailableWeapons.TryGetValue(CustomWeapons.WeaponType.Capybara, out var customWeaponBase))
 			{
-				response = $"Unable to find weapon with type {CustomWeapons.WeaponType.Ragdoll}";
+				response = $"Unable to find weapon with type {CustomWeapons.WeaponType.Capybara}";
 				return false;
 			}
 
 			bool enabled = customWeaponBase.ToggleWeapon(plr);
 
 
-			response = $"Ragdoll launcher {(enabled ? "enabled" : "disabled")}.";
+			response = $"Capybara Gun {(enabled ? "enabled" : "disabled")}.";
 			return true;
 		}
 	}

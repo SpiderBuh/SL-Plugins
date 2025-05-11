@@ -2,11 +2,7 @@
 using CustomCommands.Features.CustomWeapons.Weapons;
 using LabApi.Events.Arguments.PlayerEvents;
 using PlayerRoles;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CustomCommands.Features.CustomWeapons
 {
@@ -23,7 +19,7 @@ namespace CustomCommands.Features.CustomWeapons
 
 		public enum WeaponType
 		{
-			NONE, Grenade, Flashbang, Ball, Ragdoll
+			NONE, Grenade, Flashbang, Ball, Ragdoll, Capybara
 		}
 
 		public CustomWeapons(bool configSetting) : base(configSetting)
@@ -36,6 +32,7 @@ namespace CustomCommands.Features.CustomWeapons
 					{ WeaponType.Flashbang, new FlashLauncher() },
 					{ WeaponType.Ball, new BallLauncher() },
 					{ WeaponType.Ragdoll, new RagdollLauncher() },
+					{ WeaponType.Capybara, new CapybaraGun() },
 				};
 			}
 		}
@@ -53,6 +50,14 @@ namespace CustomCommands.Features.CustomWeapons
 			if (EnabledWeapons.TryGetValue(ev.Player.UserId, out WeaponType type) && AvailableWeapons.TryGetValue(type, out var wepBase))
 			{
 				wepBase.HitPlayer(ev);
+			}
+		}
+
+		public override void OnPlayerPlacedBulletHole(PlayerPlacedBulletHoleEventArgs ev)
+		{
+			if (EnabledWeapons.TryGetValue(ev.Player.UserId, out WeaponType type) && AvailableWeapons.TryGetValue(type, out var wepBase))
+			{
+				wepBase.PlaceBulletHole(ev);
 			}
 		}
 

@@ -33,7 +33,7 @@ namespace CustomCommands.Commands.Spawn
 
 		protected override bool ExecuteParent(ArraySegment<string> arguments, ICommandSender sender, out string response)
 		{
-			response = "Please provide a valid subcommand. grenade/flash/ball";
+			response = $"Please provide a valid subcommand\n{string.Join("/", this.Commands.Select(r => r.Value.Command))}";
 			return false;
 		}
 	}

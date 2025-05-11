@@ -30,7 +30,7 @@ namespace CustomCommands.Commands.Player
 
 		protected override bool ExecuteParent(ArraySegment<string> arguments, ICommandSender sender, out string response)
 		{
-			response = string.Join("/", this.Commands.Select(r => r.Value.Command));
+			response = $"Please provide a valid subcommand\n{string.Join("/", this.Commands.Select(r => r.Value.Command))}";
 			return false;
 		}
 	}

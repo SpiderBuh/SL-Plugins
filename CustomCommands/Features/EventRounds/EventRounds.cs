@@ -1,4 +1,5 @@
 ﻿using CustomCommands.Core;
+using CustomCommands.Features.EventRounds.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,13 @@ namespace CustomCommands.Features.EventRounds
 {
 	public class EventRounds : CustomFeature
 	{
-		private static EventType eventType;
-		public static bool EventInProgress => eventType == EventType.NONE;
-		private CustomEventRound eventRound;
+		private Dictionary<EventType, CustomEventRound> EventHandlers = new Dictionary<EventType, CustomEventRound>()
+		{
+		};
+
+		private static EventType QueuedEvent;
+		public static bool EventInProgress => CurrentEvent == null;
+		private static CustomEventRound CurrentEvent;
 
 		public EventRounds(bool configSetting) : base(configSetting)
 		{
@@ -27,14 +32,17 @@ namespace CustomCommands.Features.EventRounds
 			SnowballFight = 4 // This event is christmas-exclusive.
 		}
 
-		public void setEventRound(EventType type)
+		public void QueueEvent(EventType type)
 		{
-			switch (type)
-			{
-				default:
-					eventRound = null;
-					break;
-			}
+			QueuedEvent = type;
+		}
+
+		public override void OnServerWaitingForPlayers()
+		{
+			CurrentEvent = EventHandlers[QueuedEvent];
+
+			if (QueuedEvent != EventType.NONE)
+				QueuedEvent = EventType.NONE;
 		}
 	}
 }
