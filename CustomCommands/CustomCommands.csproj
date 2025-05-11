@@ -82,7 +82,6 @@
     <Compile Include="Features\DamageAnnouncements\DamageAnnouncements.cs" />
     <Compile Include="Features\DoorLocking\Commands\Doors.cs" />
     <Compile Include="Features\DoorLocking\DoorLocking.cs" />
-    <Compile Include="Features\SCPSwap\Commands\SwapParentCommand.cs" />
     <Compile Include="Features\SCPSwap\SCPSwap.cs" />
     <Compile Include="Features\SurfaceLightingFix\SurfaceLightObject.cs" />
     <Compile Include="Features\TestingFeatures\TestingDummies.cs" />
@@ -106,11 +105,7 @@
     <Compile Include="Features\CustomWeapons\Commands\Ragdoll.cs" />
     <Compile Include="Features\Misc\PocketRagdollHandler.cs" />
     <Compile Include="Features\SCP079Removal\SCP079Removal.cs" />
-    <Compile Include="Features\SCPSwap\Commands\Accept.cs" />
-    <Compile Include="Features\SCPSwap\Commands\Deny.cs" />
-    <Compile Include="Features\SCPSwap\Commands\Human.cs" />
     <Compile Include="Features\SCPSwap\Commands\List.cs" />
-    <Compile Include="Features\SCPSwap\Commands\Replace.cs" />
     <Compile Include="Features\SCPSwap\Commands\TriggerReplace.cs" />
     <Compile Include="Features\Voting\Commands\No.cs" />
     <Compile Include="Features\Voting\Commands\Yes.cs" />

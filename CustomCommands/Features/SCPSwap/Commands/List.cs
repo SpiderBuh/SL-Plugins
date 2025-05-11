@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace CustomCommands.Features.SCPSwap.Commands
 {
-	[CommandHandler(typeof(SwapParentCommand))]
+	[CommandHandler(typeof(ClientCommandHandler))]
 	public class List : ICommand
 	{
 		public string Command => "scplist";

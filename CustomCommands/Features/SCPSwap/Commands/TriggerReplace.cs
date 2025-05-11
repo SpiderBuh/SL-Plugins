@@ -6,7 +6,7 @@ using System;
 
 namespace CustomCommands.Features.SCPSwap.Commands
 {
-
+	[CommandHandler(typeof(GameConsoleCommandHandler))]
 	[CommandHandler(typeof(RemoteAdminCommandHandler))]
 	public class TriggerReplace : ICustomCommand
 	{
