@@ -23,8 +23,7 @@ namespace CustomCommands.Features.SCPSwap
 			//Basic header for this section of the settings list. This will be used to give a quick description of what all the settings below are used for.
 			new SSGroupHeader(Name, false, Description),
 			//Custom keybind option. Default bind set to O (not Zero), blocks input while GUIs are open, and adds a simple descriptive hint for the option.
-			new SSKeybindSetting((int) SettingsIDs.SCP_SwapToHuman, "Swap to Human", KeyCode.O, true, "Swap from an SCP to a Human role."),
-			new SSKeybindSetting((int) SettingsIDs.SCP_SwapFromHuman, "Swap to SCP", KeyCode.L, true, "Replaces an SCP if an SCP slot is available."),
+			new SSKeybindSetting((int) SettingsIDs.SCP_SwapFromHuman, "Swap to SCP", KeyCode.L, false /*<- Spectators have a GUI*/, "Replaces an SCP if an SCP slot is available."), 
 			//Custom setting with 2 toggle buttons. The 2nd option (Referred to as B in all code) is set as the default option for users. Also has a simple descriptive hint for the option.
 			//new SSTwoButtonsSetting((int) SettingsIDs.SCP_NeverSCP, "Auto swap from SCP", "Enabled", "Disabled", true, "Always get swapped to a human role if you spawn as an SCP (And are not on cooldown from doing so)")
 		};
@@ -56,20 +55,6 @@ namespace CustomCommands.Features.SCPSwap
 			//All setting IDs are ints, and each setting has a unique ID given by us when the setting is registered.
 			switch (setting.SettingId)
 			{
-				case (int)SettingsIDs.SCP_SwapToHuman:
-					{
-						//To get the data we need, we need to first cast the setting into it's appropriate SSSB (In this case, a KeybindSetting). We then need to check if the synced key is being pressed.
-						//If the key is being pressed, run whatever it is we need to run. In this case, it will swap the SCP to a human role.
-						if (setting is SSKeybindSetting kbSetting && kbSetting.SyncIsPressed)
-						{
-							if (SCPSwap.CanScpSwapToHuman(hub, out string reason))
-								SCPSwap.SwapScpToHuman(hub);
-							else
-								hub.gameConsoleTransmission.SendToClient(reason, "green");
-						}
-						break;
-					}
-
 				case (int)SettingsIDs.SCP_SwapFromHuman:
 					{
 						if (setting is SSKeybindSetting kbSetting && kbSetting.SyncIsPressed)
