@@ -17,26 +17,17 @@ namespace CustomCommands.Features.SCPSwap
 {
     public class SCPSwap : CustomFeature
     {
-        internal enum SwapType
-        {
-            SwappedToHuman,
-            SwappedToSCP,
-        }
+
 
         public static bool SwapPaused = false;
 
-        static int _swapSeconds = 60;
-        public static int SwapToHumanSeconds => _swapSeconds;
-        public static int SwapToScpSeconds => (int)(_swapSeconds * 1.5f);
+        public static int SwapSeconds { get; internal set; } = 60;
 
         public static int SCPsToReplace = 0;
         static int ReplaceBaseCooldownRounds = 3;
 
         static Dictionary<string, int> triggers = new Dictionary<string, int>();
         static Dictionary<string, int> scpCooldown = new Dictionary<string, int>();
-        static Dictionary<string, int> humanCooldown = new Dictionary<string, int>();
-        static Dictionary<string, string> swapRequests = new Dictionary<string, string>();
-        static Dictionary<string, SwapType> swapDict = new Dictionary<string, SwapType>();
         private static readonly RoleTypeId[] scpRoles = { RoleTypeId.Scp049, RoleTypeId.Scp079, RoleTypeId.Scp106, RoleTypeId.Scp173, RoleTypeId.Scp939, RoleTypeId.Scp096 };
 
         public class Raffle
@@ -175,56 +166,7 @@ namespace CustomCommands.Features.SCPSwap
         public static void ReplaceBroadcast()
         {
             Server.ClearBroadcasts();
-            Server.SendBroadcast($"There {(SCPsToReplace == 1 ? "is" : "are")} now {SCPsToReplace} SCP spot{(SCPsToReplace == 1 ? "" : "s")} available. Run \".scp\" to queue for an SCP", 5);
-        }
-
-        public static bool CanScpSwapToHuman(ReferenceHub plr, out string reason) => CanScpSwapToHuman(Player.Get(plr), out reason);
-        public static bool CanScpSwapToHuman(Player plr, out string reason)
-        {
-            if (!CustomCommandsPlugin.Config.EnableScpSwap)
-            {
-                reason = "Swapping is not enabled on this server";
-                return false;
-            }
-
-            if (SwapPaused)
-            {
-                reason = "Swapping has been paused";
-                return false;
-            }
-
-            if (!plr.IsSCP || plr.Role == RoleTypeId.Scp0492)
-            {
-                reason = "You must be an SCP to run this command";
-                return false;
-            }
-
-            if (plr.Health != plr.MaxHealth)
-            {
-                reason = "You cannot swap as you have taken damage";
-                return false;
-            }
-            if (swapDict.ContainsKey(plr.UserId))
-            {
-                reason = "You cannot swap back to human";
-                return false;
-            }
-            if (humanCooldown.TryGetValue(plr.UserId, out int roundCount))
-            {
-                if (roundCount > RoundRestart.UptimeRounds)
-                {
-                    reason = $"You are on cooldown for another {roundCount - RoundRestart.UptimeRounds} round(s).";
-                    return false;
-                }
-            }
-            if (Round.Duration > TimeSpan.FromSeconds(SwapToHumanSeconds))
-            {
-                reason = $"You can only swap from SCP within the first {SwapToHumanSeconds} seconds of a round";
-                return false;
-            }
-
-            reason = string.Empty;
-            return true;
+            Server.SendBroadcast($"There {(SCPsToReplace == 1 ? "is" : "are")} now {SCPsToReplace} SCP spot{(SCPsToReplace == 1 ? "" : "s")} available.\nHit the SCP swap keybind to queue for an SCP", 5);
         }
 
         public static bool CanHumanSwapToScp(ReferenceHub plr, out string reason) => CanHumanSwapToScp(Player.Get(plr), out reason);
@@ -235,7 +177,6 @@ namespace CustomCommands.Features.SCPSwap
                 reason = "Swapping is not enabled on this server";
                 return false;
             }
-
             if (SwapPaused)
             {
                 reason = "Swapping has been paused";
@@ -246,14 +187,9 @@ namespace CustomCommands.Features.SCPSwap
                 reason = "There are no SCPs to replace";
                 return false;
             }
-            if (swapDict.ContainsKey(plr.UserId) || plr.IsSCP)
+            if (Round.Duration > TimeSpan.FromSeconds(SwapSeconds))
             {
-                reason = "You were already an SCP this round";
-                return false;
-            }
-            if (Round.Duration > TimeSpan.FromSeconds(SwapToScpSeconds))
-            {
-                reason = $"You can only replace an SCP within the first {SwapToScpSeconds} seconds of the round";
+                reason = $"You can only replace an SCP within the first {SwapSeconds} seconds of the round";
                 return false;
             }
             if (scpCooldown.TryGetValue(plr.UserId, out int roundCount))
@@ -280,17 +216,6 @@ namespace CustomCommands.Features.SCPSwap
 
             reason = string.Empty;
             return true;
-        }
-
-        public static void SwapScpToHuman(ReferenceHub plr) => SwapScpToHuman(Player.Get(plr));
-        public static void SwapScpToHuman(Player plr)
-        {
-            SCPSwap.SCPsToReplace++;
-            HumanSpawner.SpawnLate(plr.ReferenceHub);
-            swapDict.AddToOrReplaceValue(plr.UserId, SwapType.SwappedToHuman);
-            SCPSwap.ReplaceBroadcast();
-
-            humanCooldown.AddToOrReplaceValue(plr.UserId, RoundRestart.UptimeRounds + SCPSwap.ReplaceBaseCooldownRounds);
         }
 
         public static void QueueSwapHumanToScp(ReferenceHub plr) => QueueSwapHumanToScp(Player.Get(plr));
@@ -324,78 +249,25 @@ namespace CustomCommands.Features.SCPSwap
             ScpTicketsLoader tix = new ScpTicketsLoader();
             tix.ModifyTickets(plr.ReferenceHub, 10);
             tix.Dispose();
-            swapDict.AddToOrReplaceValue(plr.UserId, SwapType.SwappedToSCP);
 
             SCPSwap.SCPsToReplace--;
             scpCooldown.AddToOrReplaceValue(plr.UserId, RoundRestart.UptimeRounds + SCPSwap.ReplaceBaseCooldownRounds);
         }
 
-        public static bool HasSwapRequest(Player plr, out Player swapper)
-        {
-            swapper = null;
-            return swapRequests.TryGetValue(plr.UserId, out var swapperID) && Player.TryGet(swapperID, out swapper) ||
-                swapRequests.Values.Where(r => r == plr.UserId).Any();
-        }
-        public static void RemoveSwapRequest(Player plr)
-        {
-            if (swapRequests.ContainsKey(plr.UserId))
-                swapRequests.Remove(plr.UserId);
-        }
-        public static void AddSwapRequest(Player player, Player target)
-        {
-            //This is reversed so that you can easily check from the target side if they have any pending requests;
-            swapRequests.AddToOrReplaceValue(target.UserId, player.UserId);
-
-            target.SendHint($"{player.Nickname} wants to swap SCP with you. Type `.sswapa` in your console to swap to {player.Role}, or type `.sswapd` to reject the request", 8);
-            target.SendConsoleMessage($"{player.Nickname} wants to swap SCP with you. Type `.sswapa` in your console to swap to SCP-{player.Role}, or type `.sswapd` to reject the request");
-        }
-        public static bool CanSwap(Player player, Player target, out string response)
-        {
-            if (player.Health != player.MaxHealth)
-            {
-                response = "You cannot swap as you have taken damage";
-                return false;
-            }
-            else if (target != null && target.Health != target.MaxHealth)
-            {
-                response = "You cannot swap as the person you want to swap with has taken damage";
-                return false;
-            }
-            else if (Round.Duration > TimeSpan.FromMinutes(1))
-            {
-                response = "You can only swap your SCP within the first minute of a round";
-                return false;
-            }
-
-            response = string.Empty;
-            return true;
-        }
-
-        public static void SwapSCPs(Player player, Player target)
-        {
-            RoleTypeId playerSCP = player.Role;
-            RoleTypeId targetSCP = target.Role;
-
-            player.SetRole(targetSCP, RoleChangeReason.LateJoin);
-            target.SetRole(playerSCP, RoleChangeReason.LateJoin);
-
-            RemoveSwapRequest(player);
-        }
 
         #region Events
 
         public override void OnServerRoundEnded(RoundEndedEventArgs ev)
         {
             triggers.Clear();
-            swapDict.Clear();
-            swapRequests.Clear();
             SCPsToReplace = 0;
+            SCPSwap.raffle = null;
         }
         public override void OnServerRoundStarted()
         {
             SCPSwap.SCPsToReplace = 0;
 
-            Timing.CallDelayed(SCPSwap.SwapToHumanSeconds, () =>
+            Timing.CallDelayed(SCPSwap.SwapSeconds, () =>
             {
                 if (SCPSwap.SCPsToReplace > 0)
                 {
@@ -423,28 +295,10 @@ namespace CustomCommands.Features.SCPSwap
                 }
             });
         }
-        public override void OnPlayerSpawned(PlayerSpawnedEventArgs ev)
-        {
-            if (ev.Player.Role.IsValidSCP() && Round.Duration < TimeSpan.FromMinutes(1))
-            {
-                if (ServerSpecificSettingsSync.TryGetSettingOfUser<SSTwoButtonsSetting>(ev.Player.ReferenceHub, (int)SettingsIDs.SCP_NeverSCP, out SSTwoButtonsSetting settings)
-                    && settings.SyncIsA)
-                {
-                    Timing.CallDelayed(0.15f, () =>
-                    {
-                        SCPSwap.SwapScpToHuman(ev.Player.ReferenceHub);
-                    });
-                }
-                else
-                {
-                    ev.Player.SendBroadcast("You can swap SCP with another player by running the \".scpswap <SCP>\" command in your console", 5);
-                    ev.Player.SendBroadcast("You can change back to a human role by running the \".human\" command", 5);
-                }
-            }
-        }
+
         public override void OnPlayerLeft(PlayerLeftEventArgs ev)
         {
-            if (Round.Duration < TimeSpan.FromMinutes(1) && ev.Player.ReferenceHub.IsSCP(false))
+            if (Round.Duration < TimeSpan.FromSeconds(SwapSeconds) && ev.Player.ReferenceHub.IsSCP(false))
             {
                 SCPSwap.SCPsToReplace++;
                 SCPSwap.ReplaceBroadcast();

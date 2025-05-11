@@ -27,12 +27,12 @@ namespace CustomCommands.Features.SCPSwap.Commands
 
 		public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
 		{
-			if (Extensions.CanRun(sender, this, arguments, out response, out var _, out var plrSender))
+			if (Extensions.CanRun(sender, this, arguments, out response, out var _, out var _))
 				return false;
 
-			if(Round.Duration > TimeSpan.FromSeconds(SCPSwap.SwapToScpSeconds))
+			if(Round.Duration > TimeSpan.FromSeconds(SCPSwap.SwapSeconds))
 			{
-				response = $"You can only replace an SCP within the first {SCPSwap.SwapToScpSeconds} seconds of the round";
+				response = $"You can only replace an SCP within the first {SCPSwap.SwapSeconds} seconds of the round";
 				return false;
 			}
 
