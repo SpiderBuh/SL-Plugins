@@ -57,6 +57,8 @@ namespace CustomCommands
 			Harmony harmony = new Harmony("CC-Patching-Phegg");
 			harmony.PatchAll();
 
+			//Logger.Info($"{Config.EnableBlackout}");
+
 			features =
 			[
 				new Features.DoorLocking.DoorLocking(Config.EnableDoorLocking),
@@ -71,8 +73,9 @@ namespace CustomCommands
 				new Features.Voting.Votes(Config.EnablePlayerVoting),
 				new Features.RandomSize.RandomSize(Config.EnableRandomSizes),
 				new Features.CustomWeapons.CustomWeapons(Config.EnableSpecialWeapons),
-				new Features.Blackouts.Blackouts(Config.EnableBlackout),
+				
 #if DEBUG		
+				new Features.Blackouts.Blackouts(Config.EnableBlackout),
 				new Features.TestingFeatures.TestingDummies(Config.EnableDummies),
 				new Features.Testing.Navigation.NavigationEvents(Config.EnableDummies),
 #endif

@@ -14,12 +14,15 @@ namespace CustomCommands.Features.Blackouts
 	{
 		public Blackouts(bool configSetting) : base(configSetting)
 		{
-			Logger.Info($"Starting blackout manager");
-
-			Timing.CallDelayed(5, () =>
+			if (isEnabled)
 			{
-				Timing.RunCoroutine(CheckForLights());
-			});
+				Logger.Info($"Starting blackout manager");
+
+				Timing.CallDelayed(5, () =>
+				{
+					Timing.RunCoroutine(CheckForLights());
+				});
+			}
 		}
 
 		
