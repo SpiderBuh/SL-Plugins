@@ -1,10 +1,14 @@
 ﻿using CommandSystem;
 using CommandSystem.Commands.RemoteAdmin.Cleanup;
+using Mirror;
+using PlayerRoles.FirstPersonControl;
+using RemoteAdmin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace CustomCommands.Commands.Spawn
 {
@@ -33,8 +37,33 @@ namespace CustomCommands.Commands.Spawn
 
 		protected override bool ExecuteParent(ArraySegment<string> arguments, ICommandSender sender, out string response)
 		{
-			response = $"Please provide a valid subcommand\n{string.Join("/", this.Commands.Select(r => r.Value.Command))}";
-			return false;
+			if (sender is PlayerCommandSender pCS)
+			{
+
+				var lookup = string.Join(" ", arguments).Replace(Command, string.Empty).Trim();
+				LabApi.Features.Console.Logger.Info($"lookup: {lookup}");
+
+				var prefab = NetworkClient.prefabs.Where(p => string.Equals(p.Value.name, lookup, StringComparison.InvariantCultureIgnoreCase));
+
+				if (prefab.Any())
+				{
+					LabApi.Features.Console.Logger.Info($"FOUND");
+
+					var lightGO = GameObject.Instantiate(prefab.First().Value);
+					lightGO.transform.position = pCS.ReferenceHub.GetPosition();
+					NetworkServer.Spawn(lightGO);
+
+					response = $"Spawned {lookup}";
+					return true;
+				}
+				response = $"Please provide a valid subcommand or Prefab name\n{string.Join("/", this.Commands.Select(r => r.Value.Command))}";
+				return false;
+			}
+			else
+			{
+				response = "You must be a player to run this command";
+				return false;
+			}
 		}
 	}
 }

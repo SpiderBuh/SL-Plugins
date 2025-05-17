@@ -138,7 +138,7 @@ namespace DiscordLab
 		}
 		public override void OnPlayerHurting(PlayerHurtingEventArgs args)
 		{
-			if (!args.IsAllowed || args.Player == null || args.Player == null || !Extensions.RoundInProgress())
+			if (!args.IsAllowed || args.Player == null || args.Player == null || !Extensions.RoundInProgress() || !args.IsAllowed)
 				return;
 
 			if (args.DamageHandler is AttackerDamageHandler aDH)
