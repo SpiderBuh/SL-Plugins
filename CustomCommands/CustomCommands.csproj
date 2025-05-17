@@ -66,6 +66,7 @@
     <Compile Include="Features\CustomWeapons\Weapons\RagdollLauncher.cs" />
     <Compile Include="Features\Disarming\BetterDisarming.cs" />
     <Compile Include="Features\DMSRandomized\DMSEvents.cs" />
+    <Compile Include="Commands\Gaslighting\Gullible.cs" />
     <Compile Include="Features\EventRounds\Events\HeavyHideAndSeek.cs" />
     <Compile Include="Features\EventRounds\Events\HotPotato.cs" />
     <Compile Include="Features\EventRounds\Events\OneInTheChamber.cs" />
