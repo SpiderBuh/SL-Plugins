@@ -67,6 +67,13 @@
     <Compile Include="Features\Disarming\BetterDisarming.cs" />
     <Compile Include="Features\DMSRandomized\DMSEvents.cs" />
     <Compile Include="Commands\Gaslighting\Gullible.cs" />
+    <Compile Include="Features\EventRounds\Events\HeavyHideAndSeek.cs" />
+    <Compile Include="Features\EventRounds\Events\HotPotato.cs" />
+    <Compile Include="Features\EventRounds\Events\OneInTheChamber.cs" />
+    <Compile Include="Features\EventRounds\Events\SnowballFight\SnowballCommand.cs" />
+    <Compile Include="Features\EventRounds\Events\SnowballFight\SnowballEvents.cs" />
+    <Compile Include="Features\EventRounds\Events\TDMInfection.cs" />
+    <Compile Include="Features\EventRounds\Events\SCPInfection.cs" />
     <Compile Include="Features\RandomSize\RandomSize.cs" />
     <Compile Include="Features\TestingFeatures\Commands\AI.cs" />
     <Compile Include="Features\TestingFeatures\Commands\Fill.cs" />
@@ -94,12 +101,6 @@
     <Compile Include="Features\Voting\Commands\StartVote.cs" />
     <Compile Include="Features\Voting\Votes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Features\EventRounds\Events\DClassBattle\BattleCommand.cs" />
-    <Compile Include="Features\EventRounds\Events\Infection\InfectionCommand.cs" />
-    <Compile Include="Features\EventRounds\Events\Infection\InfectionEvents.cs" />
-    <Compile Include="Features\EventRounds\Events\SnowballFight\SnowballCommand.cs" />
-    <Compile Include="Features\EventRounds\Events\SnowballFight\SnowballEvents.cs" />
-    <Compile Include="Features\EventRounds\Events\TDMInfection\TDMInfectionCommand.cs" />
     <Compile Include="Features\CustomWeapons\Commands\Ball.cs" />
     <Compile Include="Features\CustomWeapons\Commands\Flash.cs" />
     <Compile Include="Features\CustomWeapons\Commands\Grenade.cs" />
@@ -121,6 +122,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Features\EventRounds\Commands\" />
     <Folder Include="Features\WeeklyEvents\" />
   </ItemGroup>
   <ItemGroup>

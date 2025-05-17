@@ -71,13 +71,10 @@ namespace CustomCommands
 				new Features.Voting.Votes(Config.EnablePlayerVoting),
 				new Features.RandomSize.RandomSize(Config.EnableRandomSizes),
 				new Features.CustomWeapons.CustomWeapons(Config.EnableSpecialWeapons),
-
-
-
-#if DEBUG
-				new Features.Blackouts.Blackouts(Config.EnableBlackout),		
+				new Features.Blackouts.Blackouts(Config.EnableBlackout),
+#if DEBUG		
 				new Features.TestingFeatures.TestingDummies(Config.EnableDummies),
-				new Features.Testing.Navigation.NavigationEvents(true),
+				new Features.Testing.Navigation.NavigationEvents(Config.EnableDummies),
 #endif
 			];
 
