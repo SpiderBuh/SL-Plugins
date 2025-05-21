@@ -35,6 +35,7 @@
     <Compile Include="Commands\Check\Ban.cs" />
     <Compile Include="Commands\Check\CheckParent.cs" />
     <Compile Include="Commands\Check\Mute.cs" />
+    <Compile Include="Commands\Gaslighting\Capyman.cs" />
     <Compile Include="Commands\Misc\RMute.cs" />
     <Compile Include="Commands\Player\Drop.cs" />
     <Compile Include="Commands\Player\Explode.cs" />
