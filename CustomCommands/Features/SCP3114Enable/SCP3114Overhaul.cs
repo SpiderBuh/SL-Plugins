@@ -42,7 +42,7 @@ namespace CustomCommands.Features.SCP3114Enable
 		{
 			if (ev.DamageHandler is Scp3114DamageHandler sDH && sDH.Subtype == Scp3114DamageHandler.HandlerType.Slap)
 			{
-				ev.Player.EnableEffect<Hemorrhage>(10);
+				ev.Player.EnableEffect<Hemorrhage>(duration: 10);
 			}
 		}
 
