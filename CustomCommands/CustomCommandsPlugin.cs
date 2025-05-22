@@ -57,8 +57,6 @@ namespace CustomCommands
 			Harmony harmony = new Harmony("CC-Patching-Phegg");
 			harmony.PatchAll();
 
-			//Logger.Info($"{Config.EnableBlackout}");
-
 			features =
 			[
 				new Features.DoorLocking.DoorLocking(Config.EnableDoorLocking),
