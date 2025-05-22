@@ -1,13 +1,13 @@
-﻿using PluginAPI.Core;
+﻿using RedRightHand.CustomPlugin;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace DiscordLab
 {
-	public class DiscordLabConfig
+	public class DiscordLabConfig : CustomPluginConfig
 	{
-		public int Port { get; set; }
-		public string Address { get; set; }
+		public int BotPort { get; set; } = 8888;
+		public string BotAddress { get; set; } = "127.0.0.1";
 	}
 }
