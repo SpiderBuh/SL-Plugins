@@ -1,5 +1,5 @@
 ﻿using CommandSystem;
-using PluginAPI.Core;
+using LabApi.Features.Wrappers;
 using RemoteAdmin;
 using System;
 
@@ -18,7 +18,7 @@ namespace CustomCommands.Features.Voting.Commands
 		{
 			if (sender is PlayerCommandSender pSender)
 			{
-				if (!VoteManager.VoteInProgress)
+				if (!Votes.VoteInProgress)
 				{
 					response = "There is no vote in progress";
 					return false;
@@ -26,16 +26,16 @@ namespace CustomCommands.Features.Voting.Commands
 
 				var plr = Player.Get(pSender.ReferenceHub);
 
-				if (plr.TemporaryData.Contains("vote_yes") || plr.TemporaryData.Contains("vote_no"))
+				if (Votes.PlayerVotes.ContainsKey(plr.UserId))
 				{
 					response = "You have already voted";
 					return false;
 				}
 
-				plr.TemporaryData.Override("vote_no", string.Empty);
+				Votes.PlayerVotes.Add(plr.UserId, false);
 
 				response = "You have voted no";
-				return false;
+				return true;
 			}
 
 			response = "You must be a player to run this command";
