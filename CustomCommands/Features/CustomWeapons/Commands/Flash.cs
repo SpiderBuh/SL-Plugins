@@ -31,9 +31,9 @@ namespace CustomCommands.Features.CustomWeapons.Commands
 
 			var plr = Player.Get(pSender.ReferenceHub);
 
-			if (!CustomWeapons.AvailableWeapons.TryGetValue(CustomWeapons.WeaponType.Flashbang, out var customWeaponBase))
+			if (!CustomWeaponsManager.AvailableWeapons.TryGetValue(CustomWeaponsManager.CustomWeaponType.Flashbang, out var customWeaponBase))
 			{
-				response = $"Unable to find weapon with type {CustomWeapons.WeaponType.Flashbang}";
+				response = $"Unable to find weapon with type {CustomWeaponsManager.CustomWeaponType.Flashbang}";
 				return false;
 			}
 

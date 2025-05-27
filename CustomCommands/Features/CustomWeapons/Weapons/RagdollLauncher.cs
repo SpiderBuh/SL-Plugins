@@ -21,13 +21,13 @@ namespace CustomCommands.Features.CustomWeapons.Weapons
 {
 	public class RagdollLauncher : CustomWeaponBase
 	{
-		public override CustomWeapons.WeaponType WeaponType => CustomWeapons.WeaponType.Ragdoll;
+		public override CustomWeaponsManager.CustomWeaponType WeaponType => CustomWeaponsManager.CustomWeaponType.Ragdoll;
 
 		public override string Name => "Ragdoll Launcher";
 
 		public override void ShootWeapon(Player player)
 		{
-			var role = CustomWeapons.RagdollRoles[Random.Range(0, CustomWeapons.RagdollRoles.Length - 1)];
+			var role = CustomWeaponsManager.RagdollRoles[Random.Range(0, CustomWeaponsManager.RagdollRoles.Length - 1)];
 
 			PlayerRoleLoader.TryGetRoleTemplate(role, out FpcStandardRoleBase pRB);
 			var firearm = player.CurrentItem.Base as Firearm;

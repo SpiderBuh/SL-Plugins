@@ -33,9 +33,9 @@ namespace CustomCommands.Features.CustomWeapons.Commands
 
 			var plr = Player.Get(pSender.ReferenceHub);
 		
-			if(!CustomWeapons.AvailableWeapons.TryGetValue(CustomWeapons.WeaponType.Ball, out var customWeaponBase))
+			if(!CustomWeaponsManager.AvailableWeapons.TryGetValue(CustomWeaponsManager.CustomWeaponType.Ball, out var customWeaponBase))
 			{
-				response = $"Unable to find weapon with type {CustomWeapons.WeaponType.Ball}";
+				response = $"Unable to find weapon with type {CustomWeaponsManager.CustomWeaponType.Ball}";
 				return false;
 			}
 

@@ -70,8 +70,8 @@ namespace CustomCommands
 				new Features.SCPSwap.SCPSwap(Config.EnableScpSwap),
 				new Features.Voting.Votes(Config.EnablePlayerVoting),
 				new Features.RandomSize.RandomSize(Config.EnableRandomSizes),
-				new Features.CustomWeapons.CustomWeapons(Config.EnableSpecialWeapons),
-				
+				new Features.CustomWeapons.CustomWeaponsManager(Config.EnableSpecialWeapons),
+				new Features.CustomRoles.CustomRolesManager(Config.EnableCustomRoles),
 #if DEBUG		
 				new Features.Blackouts.Blackouts(Config.EnableBlackout),
 				new Features.TestingFeatures.TestingDummies(Config.EnableDummies),
@@ -91,7 +91,7 @@ namespace CustomCommands
 			ServerSpecificSettingsSync.DefinedSettings = ServerSpecificSettingsSync.DefinedSettings.Concat(CustomSettingsManager.ActivateAllSettings(settings)).ToArray();
 			ServerSpecificSettingsSync.SendToAll();
 
-			RagdollManager.OnRagdollSpawned += Features.Ragdoll.PocketRagdollHandler.RagdollManager_OnRagdollSpawned;
+			//RagdollManager.OnRagdollSpawned += Features.Ragdoll.PocketRagdollHandler.RagdollManager_OnRagdollSpawned;
 		}
 
 		public override void Disable()

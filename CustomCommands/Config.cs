@@ -45,6 +45,7 @@ namespace CustomCommands
 		public bool EnableRagdollLauncher { get; set; } = true;
 		public bool EnableTranqGun { get; set; } = true;
 
+		public bool EnableCustomRoles { get; set; } = false;
 
 		public bool EnableAdditionalSurfaceLighting { get; set; } = true; //Enables extra surface lights
 		public bool EnableDamageAnnouncements { get; set; } = true; //Enables the SCP damage announcements at the end of the round

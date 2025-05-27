@@ -30,9 +30,9 @@ namespace CustomCommands.Features.CustomWeapons.Commands
 
 			var plr = Player.Get(pSender.ReferenceHub);
 
-			if (!CustomWeapons.AvailableWeapons.TryGetValue(CustomWeapons.WeaponType.Capybara, out var customWeaponBase))
+			if (!CustomWeaponsManager.AvailableWeapons.TryGetValue(CustomWeaponsManager.CustomWeaponType.Capybara, out var customWeaponBase))
 			{
-				response = $"Unable to find weapon with type {CustomWeapons.WeaponType.Capybara}";
+				response = $"Unable to find weapon with type {CustomWeaponsManager.CustomWeaponType.Capybara}";
 				return false;
 			}
 

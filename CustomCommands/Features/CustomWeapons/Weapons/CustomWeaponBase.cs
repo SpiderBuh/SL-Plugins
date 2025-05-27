@@ -6,13 +6,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static CustomCommands.Features.CustomWeapons.CustomWeapons;
+using static CustomCommands.Features.CustomWeapons.CustomWeaponsManager;
 
 namespace CustomCommands.Features.CustomWeapons.Weapons
 {
 	public abstract class CustomWeaponBase
 	{
-		public abstract WeaponType WeaponType { get; }
+		public abstract CustomWeaponType WeaponType { get; }
 		public abstract string Name { get; }
 
 		public virtual void EnableWeapon(Player player)

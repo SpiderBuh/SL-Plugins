@@ -42,7 +42,7 @@ namespace FriendlyFireDetector
 
 		public override void OnPlayerHurting(PlayerHurtingEventArgs ev)
 		{
-			if (FFDPlugin.Paused || !Extensions.RoundInProgress() || !IsValidPlayer(ev.Player) || !IsValidPlayer(ev.Attacker) || ev.Player.UserId == ev.Attacker.UserId 
+			if (FFDPlugin.Paused || !Extensions.RoundInProgress() || !IsValidPlayer(ev.Player) || !IsValidPlayer(ev.Attacker) || ev.Player.UserId == ev.Attacker.UserId
 				|| !(ev.DamageHandler is AttackerDamageHandler aDH))
 				return;
 
@@ -59,7 +59,7 @@ namespace FriendlyFireDetector
 			{
 				if (ev.Attacker.IsFF(plr, false))
 					friendlies++;
-				else
+				else if (!ev.Attacker.IsDisarmed)
 					hostiles++;
 			}
 

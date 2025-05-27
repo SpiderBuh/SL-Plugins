@@ -51,13 +51,15 @@
     <Compile Include="Commands\Spawn\Flashbang.cs" />
     <Compile Include="Commands\Spawn\Grenade.cs" />
     <Compile Include="Commands\Spawn\SpawnParent.cs" />
+    <Compile Include="Features\CustomRoles\CustomRolesManager.cs" />
+    <Compile Include="Features\CustomRoles\Roles\CustomRoleBase.cs" />
     <Compile Include="Features\EventRounds\Events\CustomEventRound.cs" />
     <Compile Include="Core\CustomFeature.cs" />
     <Compile Include="Features\Blackouts\Blackouts.cs" />
     <Compile Include="Features\CustomSettings\CustomHumanSettings.cs" />
     <Compile Include="Features\CustomWeapons\Commands\Capybara.cs" />
     <Compile Include="Features\CustomWeapons\Commands\CustomWeaponParent.cs" />
-    <Compile Include="Features\CustomWeapons\CustomWeapons.cs" />
+    <Compile Include="Features\CustomWeapons\CustomWeaponsManager.cs" />
     <Compile Include="Features\CustomWeapons\Weapons\CapybaraGun.cs" />
     <Compile Include="Features\CustomWeapons\Weapons\BallLauncher.cs" />
     <Compile Include="Features\CustomWeapons\Weapons\CustomWeaponBase.cs" />

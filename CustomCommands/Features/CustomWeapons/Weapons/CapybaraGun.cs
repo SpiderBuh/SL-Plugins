@@ -16,7 +16,7 @@ namespace CustomCommands.Features.CustomWeapons.Weapons
 {
 	public class CapybaraGun : CustomWeaponBase
 	{
-		public override CustomWeapons.WeaponType WeaponType => CustomWeapons.WeaponType.Capybara;
+		public override CustomWeaponsManager.CustomWeaponType WeaponType => CustomWeaponsManager.CustomWeaponType.Capybara;
 
 		public override string Name => "CapybaraGun";
 

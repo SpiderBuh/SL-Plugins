@@ -2,6 +2,7 @@
 using CustomCommands.Features.SCPSwap;
 using HarmonyLib;
 using LabApi.Events.Arguments.PlayerEvents;
+using LabApi.Features.Console;
 using LabApi.Features.Wrappers;
 using MEC;
 using PlayerRoles;
@@ -27,8 +28,11 @@ namespace CustomCommands.Features.SCP079Removal
 
 		public override void OnPlayerSpawned(PlayerSpawnedEventArgs ev)
 		{
-			if(ev.Role.RoleTypeId == RoleTypeId.Scp079 && SCPCount > 3)
+			Logger.Info($"{ev.Player.Role} {ev.Player.Role == RoleTypeId.Scp079} | {SCPCount} {SCPCount > 3}");
+
+			if (ev.Player.Role == RoleTypeId.Scp079 && SCPCount > 3)
 			{
+				Logger.Info($"Swapping 079 to alternate SCP");
 				SCPSwap.SCPSwap.SwapHumanToScp(ev.Player, true, true, false);
 				//ev.Player.SetRole(RoleTypeId.Scp3114, RoleChangeReason.LateJoin);
 			}
@@ -42,6 +46,7 @@ namespace CustomCommands.Features.SCP079Removal
 		[HarmonyPrefix]
 		public static void prefix(int targetScpNumber)
 		{
+			Logger.Info($"SCP Target number set to {targetScpNumber}");
 			SCP079Removal.SCPCount = targetScpNumber;
 		}
 	}

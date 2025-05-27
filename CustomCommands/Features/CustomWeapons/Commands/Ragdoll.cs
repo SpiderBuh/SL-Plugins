@@ -30,9 +30,9 @@ namespace CustomCommands.Features.CustomWeapons.Commands
 
 			var plr = Player.Get(pSender.ReferenceHub);
 
-			if (!CustomWeapons.AvailableWeapons.TryGetValue(CustomWeapons.WeaponType.Ragdoll, out var customWeaponBase))
+			if (!CustomWeaponsManager.AvailableWeapons.TryGetValue(CustomWeaponsManager.CustomWeaponType.Ragdoll, out var customWeaponBase))
 			{
-				response = $"Unable to find weapon with type {CustomWeapons.WeaponType.Ragdoll}";
+				response = $"Unable to find weapon with type {CustomWeaponsManager.CustomWeaponType.Ragdoll}";
 				return false;
 			}
 

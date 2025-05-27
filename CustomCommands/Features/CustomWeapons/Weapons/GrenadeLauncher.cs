@@ -11,7 +11,7 @@ namespace CustomCommands.Features.CustomWeapons.Weapons
 {
 	public class GrenadeLauncher : CustomWeaponBase
 	{
-		public override CustomWeapons.WeaponType WeaponType => CustomWeapons.WeaponType.Grenade;
+		public override CustomWeaponsManager.CustomWeaponType WeaponType => CustomWeaponsManager.CustomWeaponType.Grenade;
 
 		public override string Name => "Grenade Launcher";
 

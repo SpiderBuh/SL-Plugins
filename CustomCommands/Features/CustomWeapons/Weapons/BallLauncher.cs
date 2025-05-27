@@ -11,7 +11,7 @@ namespace CustomCommands.Features.CustomWeapons.Weapons
 {
 	public class BallLauncher : CustomWeaponBase
 	{
-		public override CustomWeapons.WeaponType WeaponType => CustomWeapons.WeaponType.Ball;
+		public override CustomWeaponsManager.CustomWeaponType WeaponType => CustomWeaponsManager.CustomWeaponType.Ball;
 
 		public override string Name => "SCP-018 Launcher";
 
