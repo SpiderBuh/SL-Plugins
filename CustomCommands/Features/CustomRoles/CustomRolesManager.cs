@@ -1,10 +1,13 @@
 ﻿using CustomCommands.Core;
 using CustomCommands.Features.CustomRoles.Roles;
+using LabApi.Events.Arguments.PlayerEvents;
+using LabApi.Features.Wrappers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static CustomCommands.Features.CustomWeapons.CustomWeaponsManager;
 
 namespace CustomCommands.Features.CustomRoles
 {
@@ -30,6 +33,7 @@ namespace CustomCommands.Features.CustomRoles
 			{
 				AvailableRoles = new Dictionary<CustomRoleType, CustomRoleBase>
 				{
+					{CustomRoleType.Medic, new MedicRole() }
 				};
 			}
 		}
@@ -37,6 +41,24 @@ namespace CustomCommands.Features.CustomRoles
 		public override void OnServerWaitingForPlayers()
 		{
 			ActiveRoles.Clear();
+		}
+
+		public override void OnPlayerHurting(PlayerHurtingEventArgs ev)
+		{
+			if (ActiveRoles.TryGetValue(ev.Player.UserId, out CustomRoleType type) && AvailableRoles.TryGetValue(type, out var cusRole))
+				cusRole.PlayerHurt(ev);
+		}
+
+		public override void OnPlayerDeath(PlayerDeathEventArgs ev)
+		{
+			if (ActiveRoles.TryGetValue(ev.Player.UserId, out CustomRoleType type) && AvailableRoles.TryGetValue(type, out var cusRole))
+				cusRole.PlayerDied(ev);
+		}
+
+		public override void OnPlayerChangedRole(PlayerChangedRoleEventArgs ev)
+		{
+			if (ActiveRoles.TryGetValue(ev.Player.UserId, out CustomRoleType type) && AvailableRoles.TryGetValue(type, out var cusRole))
+				cusRole.PlayerChangeRole(ev);
 		}
 	}
 }
