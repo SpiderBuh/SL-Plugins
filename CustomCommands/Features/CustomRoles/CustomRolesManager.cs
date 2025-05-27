@@ -2,6 +2,7 @@
 using CustomCommands.Features.CustomRoles.Roles;
 using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Features.Wrappers;
+using PlayerRoles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,8 +34,28 @@ namespace CustomCommands.Features.CustomRoles
 			{
 				AvailableRoles = new Dictionary<CustomRoleType, CustomRoleBase>
 				{
-					{CustomRoleType.Medic, new MedicRole() }
+					{CustomRoleType.Medic, new MedicRole() },
+					{CustomRoleType.Tank, new TankRole() },
 				};
+			}
+		}
+
+		public static void EnableRole(Player player, CustomRoleType roleType)
+		{
+			if (ActiveRoles.ContainsKey(player.UserId))
+				DisableRole(player);
+
+			if (AvailableRoles.ContainsKey(roleType))
+			{
+				AvailableRoles[roleType].EnableRole(player);
+			}
+		}
+
+		public static void DisableRole(Player player)
+		{
+			if (ActiveRoles.ContainsKey(player.UserId))
+			{
+				AvailableRoles[ActiveRoles[player.UserId]].DisableRole(player);
 			}
 		}
 

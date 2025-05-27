@@ -77,7 +77,7 @@ namespace RedRightHand
 			return SpawnRagdoll(new RagdollData(null, dh, role, position, rotation, nickname, NetworkTime.time));
 		}
 
-		public static void RagdollPlayer(this Player plr, float time = 3, float forceMultiplyer = 1, bool teleportOnEnd = true)
+		public static void RagdollPlayer(this Player plr, float time = 3, float forceMultiplyer = 1, bool teleportOnEnd = true, string ragdollText = "guh")
 		{
 			if (!plr.IsAlive)
 				return;
@@ -85,7 +85,7 @@ namespace RedRightHand
 			velocity += plr.Camera.transform.forward * UnityEngine.Random.Range(1, 1.5f) * forceMultiplyer;
 
 			velocity += plr.Camera.transform.up * UnityEngine.Random.Range(0.75f, 1.25f) * forceMultiplyer;
-			var basicRagdoll = SpawnRagdoll(plr.Nickname, plr.Role, plr.Position, plr.Camera.rotation, velocity, "guh");
+			var basicRagdoll = SpawnRagdoll(plr.Nickname, plr.Role, plr.Position, plr.Camera.rotation, velocity, ragdollText);
 
 			var items = plr.ReferenceHub.inventory.UserInventory.Items;
 			plr.CurrentItem = null;

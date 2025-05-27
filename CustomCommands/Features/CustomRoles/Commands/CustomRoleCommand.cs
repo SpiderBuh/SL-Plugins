@@ -33,13 +33,11 @@ namespace CustomCommands.Features.CustomRoles.Commands
 			if (!sender.CanRun(this, arguments, out response, out var players, out var pSender))
 				return false;
 
-			if (Enum.TryParse<CustomRolesManager.CustomRoleType>(arguments.ElementAt(1), true, out var roleEnum) && CustomRolesManager.AvailableRoles.ContainsKey(roleEnum))
+			if (Enum.TryParse<CustomRolesManager.CustomRoleType>(arguments.ElementAt(1), true, out var roleEnum))
 			{
-				var role = CustomRolesManager.AvailableRoles[roleEnum];
-
 				foreach(var player in players)
 				{
-					role.EnableRole(player);
+					CustomRolesManager.EnableRole(player, roleEnum);
 				}
 
 				response = $"{players.Count} player(s) set to custom role {arguments.ElementAt(1)}";

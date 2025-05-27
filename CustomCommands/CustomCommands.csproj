@@ -55,6 +55,7 @@
     <Compile Include="Features\CustomRoles\CustomRolesManager.cs" />
     <Compile Include="Features\CustomRoles\Roles\CustomRoleBase.cs" />
     <Compile Include="Features\CustomRoles\Roles\MedicRole.cs" />
+    <Compile Include="Features\CustomRoles\Roles\TankRole.cs" />
     <Compile Include="Features\EventRounds\Events\CustomEventRound.cs" />
     <Compile Include="Core\CustomFeature.cs" />
     <Compile Include="Features\Blackouts\Blackouts.cs" />

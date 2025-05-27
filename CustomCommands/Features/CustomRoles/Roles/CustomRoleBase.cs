@@ -22,7 +22,7 @@ namespace CustomCommands.Features.CustomRoles.Roles
 					return "SCP";
 				case Team.FoundationForces:
 				case Team.Scientists:
-					return "MTF";
+					return "Nine-Tailed Fox";
 				case Team.ChaosInsurgency:
 					return "Chaos";
 				case Team.ClassD:

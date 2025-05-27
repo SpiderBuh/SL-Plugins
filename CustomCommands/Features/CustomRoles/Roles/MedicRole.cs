@@ -27,7 +27,7 @@ namespace CustomCommands.Features.CustomRoles.Roles
 				player.AddItem(ItemType.KeycardMTFOperative);
 
 			player.AddItem(ItemType.GunCOM15);
-			player.AddItem(ItemType.ArmorHeavy);
+			player.AddItem(ItemType.ArmorLight);
 			player.AddItem(ItemType.Medkit);
 			player.AddItem(ItemType.Medkit);
 			player.AddItem(ItemType.Adrenaline);
