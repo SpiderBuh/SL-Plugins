@@ -59,37 +59,23 @@ namespace CustomCommands.Commands.Gaslighting
 
             var plr = plrs.First();
 
-            GameObject prefab = NetworkClient.prefabs.Select(x => x.Value).First(x =>
-            {
-                return x.TryGetComponent(out AdminToyBase toyBase) && toyBase.CommandName is "Text";
-            });
-            GameObject obj = UnityEngine.Object.Instantiate(prefab);
-            AdminToyBase toyBase = obj.GetComponent<AdminToyBase>();
-            TextToy gullible = toyBase as TextToy;
-            if (LabApi.Features.Wrappers.Player.TryGet(sender, out var plr_sender))
-                gullible.OnSpawned(plr_sender.ReferenceHub, arguments);
-            else if (ReferenceHub.TryGetHostHub(out var shub))
-                gullible.OnSpawned(shub, arguments);
-            else return false;
+            var gullible = LabApi.Features.Wrappers.TextToy.Create(Vector3.up, Quaternion.LookRotation(Vector3.up) * Quaternion.Euler(Vector3.forward * 180), plr.GameObject.transform);
 
             gullible.TextFormat = "<size=2>gullible";
 
-            gullible.transform.SetPositionAndRotation(plr.Camera.position + Vector3.up, Quaternion.LookRotation(Vector3.up)*Quaternion.Euler(Vector3.forward*180));
-
-            gullible.transform.SetParent(plr.GameObject.transform);
-
-            gullible.IsStatic = false;
-
-            var performance_guzzler = gullible.gameObject.AddComponent<RoofFinder>();
+            var performance_guzzler = gullible.GameObject.AddComponent<RoofFinder>();
             
-            plr.Connection.Send(new ObjectHideMessage { netId = gullible.netId });
+            plr.Connection.Send(new ObjectHideMessage { netId = gullible.Base.netId });
 
             foreach (var scp in LabApi.Features.Wrappers.Player.List.Where(x => x.IsSCP()))
             {
-                scp.Connection.Send(new ObjectHideMessage { netId = gullible.netId });
+                scp.Connection.Send(new ObjectHideMessage { netId = gullible.Base.netId });
             }
 
-            response = $"Gullible added. You can remove it with \'DESTROYTOY {gullible.netId}\'";
+            response = $"Gullible added. You can remove it with \'DESTROYTOY {gullible.Base.netId}\'";
+            if (plrs.Count > 1) {
+                response += "\n(I'm lazy so you can only do one person at a time. Only the first person's ID was used)";
+            }
             return true;
         }
     }
