@@ -61,7 +61,7 @@ namespace CustomCommands.Commands.Renaming
 				for (int i = 0; i < players.Count; i++)
 				{
 					var plr = players.ElementAt(i);
-					if (plr == null || plr.IsServer)
+					if (plr == null || plr.IsHost)
 					{
 						continue;
 					}
