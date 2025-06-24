@@ -37,7 +37,7 @@ namespace CustomCommands.Features.CustomSettings
 			{
 				case (int)SettingsIDs.Human_Suicide:
 					{
-						if (setting is SSKeybindSetting kbSetting && kbSetting.SyncIsPressed && hub.IsHuman())
+						if (setting is SSKeybindSetting kbSetting && kbSetting.SyncIsPressed && (hub.IsHuman() || Round.IsRoundEnded))
 						{
 							hub.playerEffectsController.DisableEffect<SpawnProtected>();
 							hub.playerStats.DealDamage(new CustomReasonDamageHandler("Sudden loss of brain function", 1000));
