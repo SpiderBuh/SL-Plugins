@@ -10,6 +10,7 @@
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <TargetFrameworkProfile />
     <ProjectGuid>{A0947644-04C9-46DA-8035-7835EA86C26E}</ProjectGuid>
+		<LangVersion>12</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <OutputType>Library</OutputType>
