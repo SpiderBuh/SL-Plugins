@@ -1,5 +1,6 @@
 ﻿using CustomPlayerEffects;
 using InventorySystem;
+using LabApi.Features.Wrappers;
 using PlayerRoles;
 using PlayerStatsSystem;
 using RedRightHand.CustomSettings;
