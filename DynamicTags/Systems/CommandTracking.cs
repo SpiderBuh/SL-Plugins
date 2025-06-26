@@ -15,14 +15,14 @@ namespace DynamicTags.Systems
 {
 	public class CommandTracking : CustomEventsHandler
 	{
-		public override void OnServerCommandExecuting(CommandExecutingEventArgs ev)
+		public override void OnServerCommandExecuted(CommandExecutedEventArgs ev)
 		{
 			if (Round.IsRoundStarted)
 			{
 				if (ev.Sender is PlayerCommandSender pCS && DynamicTagsPlugin.Config.CommandTrackingUserIds.Contains(pCS.ReferenceHub.authManager.UserId))
 				{
 					var plr = Player.Get(pCS);
-					SendToDiscord($"User {plr.DisplayName} ({plr.UserId}) ran command: {ev.CommandName}" +
+					SendToDiscord($"User {plr.DisplayName} ({plr.UserId}) ran command: {ev.Command} | {ev.ExecutedSuccessfully}" +
 							$"\nPosition: {plr.Position} ({plr.Room}) | Camera: {plr.Camera.position} ({Room.GetRoomAtPosition(plr.Camera.position)})" +
 							$"\nItems: {string.Join(", ", plr.Items.Select(i => i.Base.name))}" +
 							$"\nLife: {plr.Role} | Noclip: {plr.IsNoclipEnabled} | Velocity: {plr.Velocity}");
@@ -31,7 +31,7 @@ namespace DynamicTags.Systems
 					{
 						var plr = Player.Get(pCS);
 						SendToDiscord($"**__DELAY CHECKUP:__**" +
-							$"\nUser {plr.DisplayName} ({plr.UserId}) ran command: {ev.CommandName}" +
+							$"\nUser {plr.DisplayName} ({plr.UserId}) ran command: {ev.Command} | {ev.ExecutedSuccessfully}" +
 							$"\nPosition: {plr.Position} ({plr.Room}) | Camera: {plr.Camera.position} ({Room.GetRoomAtPosition(plr.Camera.position)})" +
 							$"\nItems: {string.Join(", ", plr.Items.Select(i => i.Base.name))}" +
 							$"\nLife: {plr.Role} | Noclip: {plr.IsNoclipEnabled} | Velocity: {plr.Velocity}");
