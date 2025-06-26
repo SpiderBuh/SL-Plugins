@@ -20,6 +20,7 @@ namespace DynamicTags
 
 		public Reporting Reporting { get; set; }
 		public StaffTracker StaffTracker { get; set; }
+		public CommandTracking CommandTracking { get; set; }
 
 		public override void LoadConfigs()
 		{
@@ -63,6 +64,8 @@ namespace DynamicTags
 
 			Reporting = new Reporting();
 			CustomHandlersManager.RegisterEventsHandler(Reporting);
+			CommandTracking = new CommandTracking();
+			CustomHandlersManager.RegisterEventsHandler(CommandTracking);
 			Logger.Info($"Plugin is loaded. API Endpoint is: {Config.ApiUrl}");
 		}
 	}

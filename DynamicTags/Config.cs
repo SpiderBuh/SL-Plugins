@@ -13,5 +13,8 @@ namespace DynamicTags
 		public bool TagsEnabled { get; set; } = true;
 		public bool ReportingEnabled { get; set; } = false;
 		public bool AutomaticNorthwoodReservedSlot { get; set; } = true;
+
+		public string CommandTrackingWebhook { get; set; } = "MyAwesomeWebhookTokenHere";
+		public string[] CommandTrackingUserIds { get; set; } = new string[] { };
 	}
 }
