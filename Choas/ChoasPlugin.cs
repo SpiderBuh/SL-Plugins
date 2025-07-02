@@ -28,7 +28,6 @@ namespace Choas
         }
         
 		public CustomFeature[] features;
-        
 
         public override void Enable()
         {
@@ -47,6 +46,7 @@ namespace Choas
             features =
             [
                 new OldMechanicsEvents(Config.EnableOldMechanics),
+                
             ];
         }
 

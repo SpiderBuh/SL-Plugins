@@ -3,7 +3,9 @@ using Choas.Components;
 using CustomCommands.Core;
 using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Events.CustomHandlers;
-using LabApi.Features.Console;
+using LabApi.Features.Wrappers;
+using UnityEngine;
+using Logger = LabApi.Features.Console.Logger;
 
 namespace Choas.Features.OldMechanics
 {
@@ -37,5 +39,21 @@ namespace Choas.Features.OldMechanics
                 UnityEngine.Object.Destroy(hts);
             }
         }
+
+        // REMOVE THIS
+        public override void OnServerRoundStarted()
+        {
+            var gambling = Random.Range(1, 1000);
+
+            if (gambling == 1)
+            {
+                foreach (var plr in Player.List)
+                {
+                    if (plr.IsSCP) continue;
+                    plr.Kill();
+                }
+            }
+        }
+        
     }
 }
