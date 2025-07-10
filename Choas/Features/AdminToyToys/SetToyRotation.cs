@@ -46,7 +46,7 @@ public class SetToyRotation : ICustomCommand
             return false;
         }
         
-        toyNetID.gameObject.transform.SetLocalPositionAndRotation(toyNetID.gameObject.transform.position, Quaternion.Euler(new Vector3(x,y,z)));
+        toyNetID.gameObject.transform.SetLocalPositionAndRotation(toyNetID.gameObject.transform.localPosition, Quaternion.Euler(new Vector3(x,y,z)));
         
         response = "THe thingy hgas been rotated";
         return true;
