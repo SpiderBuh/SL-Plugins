@@ -30,6 +30,7 @@ namespace CustomCommands.Features.LateSpawn
 			lastRespawn = DateTime.Now;
 			lastTeam = ev.Wave.Faction;
 
+			if (ev.Wave is MiniRespawnWave) return;
 			Timing.CallDelayed(CustomCommandsPlugin.Config.LateSpawnTime, () =>
 			{
 				foreach (var a in lateSpawnPlayers)
