@@ -276,7 +276,7 @@ namespace CustomCommands.Features.SCPSwap
 		{
 			SCPSwap.SCPsToReplace = 0;
 
-			Timing.CallDelayed(SCPSwap.SwapSeconds, () =>
+			Timing.CallDelayed(SCPSwap.SwapSeconds + 5f, () =>
 			{
 				if (SCPSwap.SCPsToReplace > 0)
 				{
