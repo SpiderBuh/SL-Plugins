@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Choas.Features.OldMechanics;
+using Choas.Features.PinkCandy;
 using Choas.SSSettings;
 using CustomCommands.Core;
 using LabApi.Events.CustomHandlers;
@@ -46,7 +47,7 @@ namespace Choas
             features =
             [
                 new OldMechanicsEvents(Config.EnableOldMechanics),
-                
+                new CandyGrabEvents(Config.EnablePinkCandyEvents, Config.PinkCandyChance),
             ];
         }
 

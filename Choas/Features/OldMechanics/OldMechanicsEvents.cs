@@ -13,6 +13,7 @@ namespace Choas.Features.OldMechanics
     {
         public OldMechanicsEvents(bool configSetting) : base(configSetting)
         {
+            if (!isEnabled) return;
             Logger.Info("What is this, 2019?");
         }
 
