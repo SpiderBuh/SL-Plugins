@@ -4,7 +4,7 @@ namespace Choas;
 
 public class Config : CustomPluginConfig
 {
-    // Enable/disable all custom keybinds
+    // Enable/disable all custom keybinds. Probably leave this off if another plugin uses SSS, I was mostly messing around with stuff so this could break things
     public bool EnableCustomKeybinds { get; set; } = false;
     
     // Old features

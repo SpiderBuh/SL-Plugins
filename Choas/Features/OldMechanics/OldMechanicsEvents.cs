@@ -2,8 +2,6 @@
 using Choas.Components;
 using CustomCommands.Core;
 using LabApi.Events.Arguments.PlayerEvents;
-using LabApi.Events.CustomHandlers;
-using LabApi.Features.Wrappers;
 using UnityEngine;
 using Logger = LabApi.Features.Console.Logger;
 
@@ -22,8 +20,7 @@ namespace Choas.Features.OldMechanics
             if (args.Player.Team != PlayerRoles.Team.SCPs) return;
             if (args.Player.Role != PlayerRoles.RoleTypeId.Scp0492 && ReferenceHub.AllHubs.Where(x => x.roleManager.CurrentRole.RoleTypeId == PlayerRoles.RoleTypeId.Scp939).Count() == 1)
             {
-                System.Random rng = new System.Random();
-                if (rng.Next(0, 5) == 0) //Chance is lower than this because it also relies on a 939 already existing
+                if (Random.Range(0, 5) == 0) //Chance is lower than this because it also relies on a 939 already existing
                 {
                     args.Player.SetRole(PlayerRoles.RoleTypeId.Scp939, PlayerRoles.RoleChangeReason.RoundStart);
                 } 
@@ -40,21 +37,5 @@ namespace Choas.Features.OldMechanics
                 UnityEngine.Object.Destroy(hts);
             }
         }
-
-        // REMOVE THIS
-        public override void OnServerRoundStarted()
-        {
-            var gambling = Random.Range(1, 1000);
-
-            if (gambling == 1)
-            {
-                foreach (var plr in Player.List)
-                {
-                    if (plr.IsSCP) continue;
-                    plr.Kill();
-                }
-            }
-        }
-        
     }
 }
