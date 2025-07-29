@@ -13,16 +13,10 @@ public class CandyGrabEvents : CustomFeature
     /// </summary>
     public static float PinkChance = -1f;
 
-    /// <summary>
-    /// Same thing as PinkChance but this will be used when resetting PinkChance
-    /// </summary>
-    public static float ConfigChance = -1f;
-
     public CandyGrabEvents(bool configSetting, float pinkChance) : base(configSetting)
     {
         if (!isEnabled) return;
         Logger.Info($"Chance of pink candy: {Mathf.Clamp(pinkChance, 0, 100)}%");
-        ConfigChance = pinkChance;
         PinkChance = pinkChance;
     }
 
@@ -34,6 +28,6 @@ public class CandyGrabEvents : CustomFeature
 
     public override void OnServerRoundRestarted()
     {
-        PinkChance = ConfigChance;
+        PinkChance = ChoasPlugin.Config.PinkCandyChance;
     }
 }
