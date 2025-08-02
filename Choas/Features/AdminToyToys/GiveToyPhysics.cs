@@ -38,8 +38,8 @@ public class GiveToyPhysics : ICustomCommand
             return false;
         }
 
-        // toyNetID.gameObject.isStatic = false;
         _ = toyNetID.gameObject.AddComponent<Rigidbody>();
+        _ = toyNetID.gameObject.AddComponent<NetworkRigidbodyUnreliable>();
         
         response = "THe thingy hgas been physic'd";
         return true;
