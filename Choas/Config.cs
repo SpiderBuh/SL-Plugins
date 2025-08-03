@@ -14,4 +14,7 @@ public class Config : CustomPluginConfig
     public bool EnablePinkCandyEvents { get; set; } = false;
     // The % chance for a pink candy to be picked up, from 0 to 100
     public float PinkCandyChance { get; set; } = -1f;
+    
+    // The path to the folder where sound files are kept. Make sure to add a slash at the end
+    public string AudioClipFolderPath { get; set; } = "";
 }
